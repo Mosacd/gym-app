@@ -1,5 +1,5 @@
 import React from 'react';
-import gymheroimg from '@/assets/image 1.png';
+import gymheroimg from '@/assets/pexels-binyaminmellish-17840.jpg';
 import { Button } from '../../../components/ui/button';
 import { heroSectionClass, overlayClass, contentClass, headingClass, paragraphClass, buttonContainerClass, buttonClass, ghostButtonClass } from './heroBanner.styles';
 
