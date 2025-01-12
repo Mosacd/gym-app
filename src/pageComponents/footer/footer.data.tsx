@@ -1,6 +1,4 @@
-
-const Footer = () => {
-  const links = [
+export const links = [
     {
       title: 'About Us',
       href: '#'
@@ -39,7 +37,7 @@ const Footer = () => {
     }
   ];
 
-  const socialLinks = [
+ export const socialLinks = [
     {
       title: 'Facebook',
       href: '#',
@@ -95,48 +93,3 @@ const Footer = () => {
       )
     }
   ];
-
-  return (
-    <footer className="bg-black text-white p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center sm:items-start gap-8">
-          <div className="flex-1">
-           <h1 className="font-bold text-3xl sm:text-4xl">Gymgear</h1>
-          </div>
-          
-          <div className="flex-1">
-            <nav className="grid grid-cols-1 sm:grid-cols-3 gap-4 gap-x-20 md:gap-x-4 text-center sm:text-start">
-              {links.map((link, index) => (
-                <a 
-                  key={index}
-                  href={link.href}
-                  className="text-sm hover:underline hover:text-purple-900 transition"
-                >
-                  {link.title}
-                </a>
-              ))}
-            </nav>
-          </div>
-        </div>
-        
-        <div className="mt-8 pt-8 border-t border-gray-800">
-          <div className="flex items-center justify-center sm:justify-start gap-4">
-            <span className="text-sm">Follow us:</span>
-            {socialLinks.map((social, index) => (
-              <a
-                key={index}
-                href={social.href}
-                className="text-white hover:text-gray-300 transition"
-                aria-label={social.title}
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;

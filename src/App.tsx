@@ -1,24 +1,19 @@
 import React from 'react';
-import Navbar from './components/navBar';
-import HeroBanner from './components/heroBanner';
-import FeaturesSection from './components/featuresSection';
-import Footer from './components/footer';
-import CaruselForMain from './components/carusel';
-import LeverBeltBanner from './components/advert';
-import { ThemeProvider } from "@/components/theme-provider"
+import { Navigate, Route, Routes } from 'react-router-dom';
+import DashboardLayout from './layouts/dashboardLayout';
+import Main from './pages/mainPage';
+import { ThemeProvider } from './components/theme/theme-provider';
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-    <div className='dark:bg-neutral-950 w-full max-w-full overflow-x-hidden'>
-      <Navbar />
-      <HeroBanner />
-      <CaruselForMain/>
-      <LeverBeltBanner/>
-      <CaruselForMain/>
-      <FeaturesSection/>
-      <Footer />
-    </div>
+    <ThemeProvider defaultTheme='light' storageKey="vite-ui-theme">
+    <Routes>  
+    <Route path="/" element={<Navigate to='dashboard/main' replace />} />
+
+      <Route path ='dashboard' element={<DashboardLayout />}>
+        <Route index path='main' element={<Main/>} />
+      </Route>
+    </Routes>
     </ThemeProvider>
   );
 };
