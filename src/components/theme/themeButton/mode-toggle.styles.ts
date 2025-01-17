@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const themeToggleButtonClass = cva(
-  'hidden md:flex relative w-12 h-9 rounded-md border border-gray-200 dark:border-gray-800 hover:bg-white hover:text-black dark:hover:text-black dark:hover:bg-white bg-transparent transition-colors',
+  'md:flex relative w-12 h-9 rounded-md border border-gray-200 dark:border-gray-800 hover:bg-white hover:text-black dark:hover:text-black dark:hover:bg-white bg-black transition-colors',
 );
 
 export const iconClass = cva(

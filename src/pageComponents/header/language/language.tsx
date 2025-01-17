@@ -12,8 +12,8 @@ const LanguageChanger = () =>{
       
 <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className='bg-black w-12 pl-3 pr-3 h-9 hover:bg-neutral-900 dark:border-gray-800' variant="outline" size="icon">
-        {Icons.globe}        
+        <Button className='text-white hover:text-white bg-black w-fit md:w-12 pl-3 pr-3 h-9 hover:bg-neutral-900 dark:border-gray-800' variant="outline" size="icon">
+        {Icons.globe}<span className="md:hidden">select language</span>       
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center" >

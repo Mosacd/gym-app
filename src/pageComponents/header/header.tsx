@@ -32,7 +32,10 @@ const Header: React.FC = () => {
           </div>
           <Button className={loginButtonClass()}>{Icons.man} Log in</Button>
           <Button>{Icons.cart}</Button>
+          <div className='hidden md:flex'>
           <ThemeToggle />
+          </div>
+          
         </div>
       </div>
     </header>
