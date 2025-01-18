@@ -12,7 +12,7 @@ export const carousel = cva(
 
 export const carouselItem = cva("md:basis-1/2 lg:basis-1/3");
 
-export const card = cva("min-h-60 cursor-pointer");
+export const card = cva("min-h-60 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-900");
 
 export const cardContent = cva("flex flex-col items-center p-4");
 

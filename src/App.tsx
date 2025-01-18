@@ -4,6 +4,7 @@ import DashboardLayout from './layouts/dashboardLayout';
 import Main from './pages/mainPage';
 import { ThemeProvider } from './components/theme/theme-provider';
 import Products from './pages/productsPage';
+import ProductDetail from './pages/singleProductPage';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
       <Route path ='dashboard' element={<DashboardLayout />}>
         <Route index path='main' element={<Main/>} />
         <Route path='products' element={<Products/>} />
+        <Route path='productDetail' element={<ProductDetail/>} />
       </Route>
       
     </Routes>

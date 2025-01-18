@@ -5,7 +5,7 @@ const SortMenu = () =>{
 
     return(
         <Select>
-        <SelectTrigger className="w-40 dark:text-white">
+        <SelectTrigger className="w-40 dark:text-white hover:bg-gray-100 dark:hover:bg-neutral-900 transition">
           <SelectValue placeholder="Sort By"/>
         </SelectTrigger>
         <SelectContent>

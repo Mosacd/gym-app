@@ -20,7 +20,7 @@ const Products = () => {
       <ProductsHeroBanner />
 
       <div>
-        <div className="flex p-6 max-w-full gap-4 justify-between">
+        <div className="flex p-6 max-w-full gap-4 justify-between mt-10">
           <aside className="hidden sm:block bg-gray-100 p-4 rounded-md shadow-sm min-w-36 max-w-52 flex-auto h-fit dark:bg-transparent dark:text-white border dark:border-neutral-800">
             <Filters />
           </aside>
@@ -28,8 +28,7 @@ const Products = () => {
             <div className="flex items-center mb-6 justify-evenly min-w-fit gap-4">
               <SearchBar />
               <SortMenu />
-              {/* <Button className="block sm:hidden">Filter</Button> */}
-           <FiltersMobile />
+              <FiltersMobile />
             </div>
             <ProductsGrid products={sampleProducts} />
           </main>

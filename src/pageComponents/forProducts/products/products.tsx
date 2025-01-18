@@ -77,7 +77,7 @@ const VirtualizedProductGrid: React.FC<{ products: Product[] }> = ({ products })
                     key={product.id}
                     className="flex-1 mb-4 max-w-80 cursor-pointer"
                   >
-                    <div className="h-full border-2 min-h-[300px] bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-100 dark:hover:bg-neutral-900 transiton-shadow duration-200 flex flex-col dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50">
+                    <div className="h-full border-2 min-h-[300px] bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-100 dark:hover:bg-neutral-900 transiton-shadow duration-200 flex flex-col dark:border-neutral-800 dark:bg-neutral-950 dark:text-white">
                       <div className="w-full h-52 p-4 flex items-center justify-center">
                         <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-50">
                           <img
