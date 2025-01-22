@@ -21,7 +21,7 @@ const Products = () => {
 
       <div>
         <div className="flex p-6 max-w-full gap-4 justify-between mt-10">
-          <aside className="hidden sm:block bg-gray-100 p-4 rounded-md shadow-sm min-w-36 max-w-52 flex-auto h-fit dark:bg-transparent dark:text-white border dark:border-neutral-800">
+          <aside className="hidden sm:block border-2 bg-gray-100 p-4 rounded-md shadow-sm min-w-36 max-w-52 flex-auto h-fit dark:bg-transparent dark:text-white dark:border-neutral-800">
             <Filters />
           </aside>
           <main className="flex flex-col flex-auto max-w-screen-xl">

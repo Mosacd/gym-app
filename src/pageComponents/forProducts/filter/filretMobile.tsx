@@ -8,7 +8,7 @@ const FiltersMobile = () => {
   <DialogTrigger className="sm:hidden"><Button>Filter</Button></DialogTrigger>
   <DialogContent className="rounded-2xl max-w-xs">
     <DialogHeader>
-      <DialogTitle className="text-2xl dark:text-neutral-400">Filters</DialogTitle>
+      <DialogTitle className="text-2xl dark:text-neutral-400 text-center">Filter</DialogTitle>
       <DialogDescription className="text-left">
       <Filters/>
       </DialogDescription>

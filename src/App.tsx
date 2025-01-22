@@ -5,6 +5,8 @@ import Main from './pages/mainPage';
 import { ThemeProvider } from './components/theme/theme-provider';
 import Products from './pages/productsPage';
 import ProductDetail from './pages/singleProductPage';
+import CartPage from './pageComponents/cartPage/cartPage';
+
 
 const App: React.FC = () => {
   return (
@@ -16,6 +18,7 @@ const App: React.FC = () => {
         <Route index path='main' element={<Main/>} />
         <Route path='products' element={<Products/>} />
         <Route path='productDetail' element={<ProductDetail/>} />
+        <Route path='cartPage' element={<CartPage/>} />
       </Route>
       
     </Routes>
