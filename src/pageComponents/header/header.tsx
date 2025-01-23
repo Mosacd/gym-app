@@ -13,6 +13,7 @@ import {
   loginButtonClass 
 } from './header.styles';
 import ShoppingCart from '../menuCart/menuCart';
+import LogIn from '../logIn/logIn';
 
 const Header: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const Header: React.FC = () => {
             <LanguageChanger />
           </div>
           <Button className={loginButtonClass()}>{Icons.man} Log in</Button>
+          <LogIn/>
           <ShoppingCart/>
           <div className='hidden md:flex'>
           <ThemeToggle />

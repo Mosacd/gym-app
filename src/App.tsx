@@ -5,7 +5,9 @@ import Main from './pages/mainPage';
 import { ThemeProvider } from './components/theme/theme-provider';
 import Products from './pages/productsPage';
 import ProductDetail from './pages/singleProductPage';
-import CartPage from './pageComponents/cartPage/cartPage';
+import CartPage from './pages/cartPage';
+import Profile from './pages/profilePage';
+import IdOrder from './pageComponents/idOrder/idOrder';
 
 
 const App: React.FC = () => {
@@ -19,6 +21,9 @@ const App: React.FC = () => {
         <Route path='products' element={<Products/>} />
         <Route path='productDetail' element={<ProductDetail/>} />
         <Route path='cartPage' element={<CartPage/>} />
+        <Route path='profilePage' element={<Profile/>} />
+        <Route path='idOrder' element={<IdOrder/>} />
+        
       </Route>
       
     </Routes>
