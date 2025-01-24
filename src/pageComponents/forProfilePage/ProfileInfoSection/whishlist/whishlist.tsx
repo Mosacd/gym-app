@@ -1,5 +1,5 @@
 import productImg from "@/assets/Hoodie.webp"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/componentsShadcn/ui/card"
 
 const products = [
     {

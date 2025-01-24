@@ -1,5 +1,5 @@
 import image from "@/assets/10mm-lever-belt-black-black-main.webp"
-import { Button } from "@/components/ui/button";
+import { Button } from "@/componentsShadcn/ui/button";
 import CaruselForMain from "@/pageComponents/forHome/carouselMain/carusel";
 import FeaturesSection from "@/pageComponents/forHome/featuresSection/featuresSection";
 import VirtualizedAnswerList from "@/pageComponents/forSingleProductPage/comments/comments";
@@ -36,14 +36,14 @@ const ProductDetail = () => {
             <p className="text-sm text-gray-500">The model is wearing a size Medium.</p>
             <div className="flex flex-col gap-2 sm:flex-row justify-center mt-8 ">
             <Button className="max-w-md w-full">Add To Cart</Button>
-            <Button className="max-w-md w-full border-purple-900 bg-white hover:bg-neutral-200 text-purple-900 dark:bg-black dark:hover:bg-neutral-900 border-2">Add To Favourites</Button>
+            <Button variant={"secondary"} className="max-w-md w-full">Add To Favourites</Button>
             </div>
           </div>
         </div>
       </div>
         <CaruselForMain/>
         <div className="flex flex-col items-center px-10 md:px-20 gap-4">
-        <h1 className="text-2xl sm:text-3xl block h-12 dark:text-white font-semibold border-b-black dark:border-b-white border-b-2 w-full max-w-screen-lg text-center">comments</h1>
+        <h1 className="text-2xl sm:text-3xl block h-12 dark:text-white font-semibold border-b-black dark:border-b-white border-b-2 w-full max-w-screen-lg text-center">Reviews</h1>
         <VirtualizedAnswerList/>
         </div>
         

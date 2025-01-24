@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/componentsShadcn/ui/tabs";
 import ProfileHero from "@/pageComponents/forProfilePage/ProfileHero/profileHero";
 import Account from "@/pageComponents/forProfilePage/ProfileInfoSection/account/account";
 import Orders from "@/pageComponents/forProfilePage/ProfileInfoSection/orders/orders";

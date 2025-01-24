@@ -1,5 +1,5 @@
 import beltimg from '@/assets/BeltHeader_1a.webp';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/componentsShadcn/ui/button';
 
 import {
   banner,

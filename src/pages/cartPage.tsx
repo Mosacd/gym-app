@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button"; // Assuming you have a reusable button component
+import { Button } from "@/componentsShadcn/ui/button"; // Assuming you have a reusable button component
 import productImage from "@/assets/Hoodie.webp"; // Replace with your actual image
-import { Input } from "@/components/ui/input";
+import { Input } from "@/componentsShadcn/ui/input";
 
 
 const CartPage = () => {
@@ -100,7 +100,7 @@ const CartPage = () => {
             />
             <div className="w-full md:max-w-xs flex flex-col md:flex-row items-center gap-4">
               <Button className="w-full max-w-sm text-white">Use Coupon</Button>
-              <Button className="w-full max-w-sm border-purple-900 bg-white hover:bg-neutral-200 text-purple-900 dark:bg-black dark:hover:bg-neutral-900 border-2">Update Cart</Button>
+              <Button variant={"secondary"} className="w-full max-w-sm">Update Cart</Button>
             </div>
           </div>
         </div>

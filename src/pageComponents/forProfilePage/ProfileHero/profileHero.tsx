@@ -1,6 +1,6 @@
 import profileImage from "@/assets/Profile image.png";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/componentsShadcn/ui/avatar";
+import { Button } from "@/componentsShadcn/ui/button";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
 const ProfileHero = () =>{

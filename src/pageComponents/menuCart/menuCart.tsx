@@ -1,5 +1,5 @@
 import beltImage from "@/assets/10mm-lever-belt-black-black-main.webp";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/componentsShadcn/ui/button";
 import { Icons } from "../header/icon.data";
 import {
   Sheet,
@@ -7,7 +7,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/componentsShadcn/ui/sheet";
 import { X } from "lucide-react";
 
 const ShoppingCart = () => {

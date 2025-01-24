@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componentsShadcn/ui/card";
 import { Link } from "react-router-dom";
 import productImage from "@/assets/Hoodie.webp"
 

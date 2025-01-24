@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/componentsShadcn/ui/button';
 
 interface Product {
   id: string;

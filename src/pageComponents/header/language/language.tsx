@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/componentsShadcn/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/componentsShadcn/ui/dropdown-menu";
 import { Icons } from "../icon.data";
 
 const LanguageChanger = () =>{

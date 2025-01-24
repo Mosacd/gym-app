@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/componentsShadcn/ui/button";
 import productImage from "@/assets/Hoodie.webp";
 
 const IdOrder = () =>{

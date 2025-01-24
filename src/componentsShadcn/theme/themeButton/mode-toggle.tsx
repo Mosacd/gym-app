@@ -1,5 +1,5 @@
 import { Moon, Sun } from "lucide-react";
-import { Button } from '../../ui/button';
+import { Button } from '../../../componentsShadcn/ui/button';
 import { useTheme } from '../theme-provider';
 import { iconClass, iconClassDark, themeToggleButtonClass } from "./mode-toggle.styles";
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '../../components/ui/button';
-import ThemeToggle from '../../components/theme/themeButton/mode-toggle';
+import { Button } from '../../componentsShadcn/ui/button';
+import ThemeToggle from '../../componentsShadcn/theme/themeButton/mode-toggle';
 import Menu from './menu/menu';
 import LanguageChanger from './language/language';
 import { Icons } from './icon.data';
@@ -13,7 +13,7 @@ import {
   loginButtonClass 
 } from './header.styles';
 import ShoppingCart from '../menuCart/menuCart';
-import LogIn from '../logIn/logIn';
+
 
 const Header: React.FC = () => {
   return (
@@ -33,7 +33,7 @@ const Header: React.FC = () => {
             <LanguageChanger />
           </div>
           <Button className={loginButtonClass()}>{Icons.man} Log in</Button>
-          <LogIn/>
+    
           <ShoppingCart/>
           <div className='hidden md:flex'>
           <ThemeToggle />

@@ -2,12 +2,14 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboardLayout';
 import Main from './pages/mainPage';
-import { ThemeProvider } from './components/theme/theme-provider';
+import { ThemeProvider } from './componentsShadcn/theme/theme-provider';
 import Products from './pages/productsPage';
 import ProductDetail from './pages/singleProductPage';
 import CartPage from './pages/cartPage';
 import Profile from './pages/profilePage';
 import IdOrder from './pageComponents/idOrder/idOrder';
+import LogIn from './pageComponents/logIn/logIn';
+import Register from './pageComponents/register/register';
 
 
 const App: React.FC = () => {
@@ -23,7 +25,8 @@ const App: React.FC = () => {
         <Route path='cartPage' element={<CartPage/>} />
         <Route path='profilePage' element={<Profile/>} />
         <Route path='idOrder' element={<IdOrder/>} />
-        
+        <Route path='signIn' element={<LogIn/>} />
+        <Route path='register' element={<Register/>} />
       </Route>
       
     </Routes>

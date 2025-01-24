@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/componentsShadcn/ui/button";
+import { Checkbox } from "@/componentsShadcn/ui/checkbox";
 
 
 const Filters = () =>{

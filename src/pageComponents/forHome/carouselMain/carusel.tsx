@@ -1,11 +1,11 @@
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/componentsShadcn/ui/card"
 import { 
   Carousel, 
   CarouselContent, 
   CarouselItem, 
   CarouselNext, 
   CarouselPrevious 
-} from "@/components/ui/carousel"    
+} from "@/componentsShadcn/ui/carousel"    
 import beltImage from '@/assets/10mm-lever-belt-black-black-main.webp'
 import {
   wrapper,

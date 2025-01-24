@@ -15,6 +15,15 @@ import { Input } from "@/componentsShadcn/ui/input"
 
 
 const formSchema = z.object({
+  firstname: z
+    .string()
+    .nonempty({ message: "Firs Name is required" }),
+  lastname: z
+    .string()
+    .nonempty({ message: "Last Name is required" }),
+  nickname: z
+    .string()
+    .nonempty({ message: "Nickname is required" }),
   email: z
     .string()
     .email({ message: "Invalid email address" })
@@ -24,15 +33,17 @@ const formSchema = z.object({
     .min(8, {message: "Password must be at least 8 characters."})
     .nonempty({ message: "Password is required" }),
 });
+ 
 
 
-
-const FormElement = () =>{
+const RegisterForm = () =>{
      
  // 1. Define your form.
  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      firstname:"",
+      lastname:"",
       email: "",
       password: "",
     },
@@ -49,6 +60,35 @@ const FormElement = () =>{
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col items-center space-y-6 max-w-xs *:w-full px-2 w-full dark:text-white">
             <div className="space-y-3">
+            <FormField
+              control={form.control}
+              name="firstname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="rando1" {...field} />
+                  </FormControl>
+         
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="randomadze" {...field} />
+                  </FormControl>
+         
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+           
             <FormField
               control={form.control}
               name="email"
@@ -78,18 +118,18 @@ const FormElement = () =>{
               )}
             />
             </div> 
-            <Button className="" type="submit">Log In</Button>
+            <Button className="" type="submit">Register</Button>
             <FormDescription>
             <div className="flex justify-center gap-2">
-              <h1 className="text-sm text-gray-600 dark:text-gray-500">Dont't have an account?</h1>
-              <h1 className="text-sm text-purple-900 font-semibold hover:underline cursor-pointer">Register</h1>
-            </div> 
-            </FormDescription> 
-          </form> 
-        </Form> 
+              <h1 className="text-sm text-gray-600 dark:text-gray-500">Already have an account?</h1>
+              <h1 className="text-sm text-purple-900 font-semibold hover:underline cursor-pointer">Log In</h1>
+            </div>
+            </FormDescription>
+          </form>
+        </Form>
       )
 } 
     
 
 
-export default FormElement;
+export default RegisterForm;

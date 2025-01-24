@@ -11,9 +11,9 @@
     "prefix": ""
   },
   "aliases": {
-    "components": "@/components",
+    "components": "@/componentsShadcn",
     "utils": "@/lib/utils",
-    "ui": "@/components/ui",
+    "ui": "@/componentsShadcn/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },

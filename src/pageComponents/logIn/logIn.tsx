@@ -1,24 +1,14 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import FormElement from "./form/form"
-
- 
-
-
 
 
 const LogIn = () =>{
   return(
-    <Dialog>
-  <DialogTrigger>Log in</DialogTrigger>
-  <DialogContent className="rounded-2xl max-w-xs">
-    <DialogHeader>
-      <DialogTitle className="text-2xl dark:text-neutral-400 text-center">Sign In</DialogTitle>
-      <DialogDescription className="text-left">
+    <div className="py-10 px-6 sm:p-36">
+    <div className="max-w-sm flex-col m-auto rounded-xl p-5 border-4 justify-center items-center flex w-full dark:border-neutral-800">
+      <h1 className="text-2xl mb-5 font-semibold dark:text-white">Log In</h1>
       <FormElement/>
-      </DialogDescription>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>
+      </div>
+      </div>
   )
 } 
 
