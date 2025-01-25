@@ -7,9 +7,11 @@ const DashboardLayout: React.FC = () =>{
     return(
     <div className='bg-white w-full max-w-full overflow-x-hidden dark:bg-neutral-950'>
         <Header/>
-    <div className="mt-20">
+
+    <div className="mt-20 min-h-screen">
         <Outlet/>
         </div>
+
         <Footer />
         </div>
   

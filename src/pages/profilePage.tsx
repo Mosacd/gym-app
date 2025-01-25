@@ -6,6 +6,7 @@ import Whishlist from "@/pageComponents/forProfilePage/ProfileInfoSection/whishl
 import PersonalReviews from "@/pageComponents/forProfilePage/ProfileInfoSection/personalReviews/personalReviews";
 
 const Profile = () => {
+  console.log("profile")
   return (
     <>
       <ProfileHero/>

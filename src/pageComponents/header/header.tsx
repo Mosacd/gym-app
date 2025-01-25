@@ -13,9 +13,15 @@ import {
   loginButtonClass 
 } from './header.styles';
 import ShoppingCart from '../menuCart/menuCart';
+import { useAuthContext } from '@/context/auth/hooks/useAuthContext';
+import { Avatar, AvatarFallback, AvatarImage } from '@/componentsShadcn/ui/avatar';
+import { Link } from 'react-router-dom';
 
 
 const Header: React.FC = () => {
+
+    const { user } = useAuthContext();
+  
   return (
     <header className={headerClass()}>
       <div className={containerClass()}>
@@ -32,7 +38,14 @@ const Header: React.FC = () => {
           <div className={languageChangerClass()}>
             <LanguageChanger />
           </div>
-          <Button className={loginButtonClass()}>{Icons.man} Log in</Button>
+          { user ?   (<Link to={"profilePage"}><Avatar className='h-10 w-10 border-4 border-purple-900' >
+                  <AvatarImage src={""} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                </Link>
+                ) : <Button className={loginButtonClass()}>{Icons.man} Log in</Button>
+          }
+         
     
           <ShoppingCart/>
           <div className='hidden md:flex'>

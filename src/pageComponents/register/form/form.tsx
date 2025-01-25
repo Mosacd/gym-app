@@ -12,18 +12,16 @@ import {
   FormMessage,
 } from "@/componentsShadcn/ui/form"
 import { Input } from "@/componentsShadcn/ui/input"
+import { useRegister } from "@/reactQuery/auth/register"
 
 
 const formSchema = z.object({
-  firstname: z
+  fullNameEn: z
     .string()
     .nonempty({ message: "Firs Name is required" }),
-  lastname: z
+  fullNameKa: z
     .string()
     .nonempty({ message: "Last Name is required" }),
-  nickname: z
-    .string()
-    .nonempty({ message: "Nickname is required" }),
   email: z
     .string()
     .email({ message: "Invalid email address" })
@@ -42,18 +40,18 @@ const RegisterForm = () =>{
  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstname:"",
-      lastname:"",
+      fullNameEn:"",
+      fullNameKa:"",
       email: "",
       password: "",
     },
   })
  
+  const { mutate: register, isError, error, isPending } = useRegister();
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+    register(values)
   }
 
      return (
@@ -62,10 +60,10 @@ const RegisterForm = () =>{
             <div className="space-y-3">
             <FormField
               control={form.control}
-              name="firstname"
+              name="fullNameEn"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>Full Name En</FormLabel>
                   <FormControl>
                     <Input placeholder="rando1" {...field} />
                   </FormControl>
@@ -76,10 +74,10 @@ const RegisterForm = () =>{
             />
             <FormField
               control={form.control}
-              name="lastname"
+              name="fullNameKa"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Last Name</FormLabel>
+                  <FormLabel>Full Name Ka</FormLabel>
                   <FormControl>
                     <Input placeholder="randomadze" {...field} />
                   </FormControl>
@@ -126,6 +124,9 @@ const RegisterForm = () =>{
             </div>
             </FormDescription>
           </form>
+          {isError && <p className="text-red-500">Sign Up failed: {String(error)}</p>}
+          {isPending && (
+        <h1 className="m-auto text-center text-lg">Signing you up...</h1>)}
         </Form>
       )
 } 

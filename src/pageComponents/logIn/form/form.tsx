@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/componentsShadcn/ui/form"
 import { Input } from "@/componentsShadcn/ui/input"
+import { useSignIn } from "@/reactQuery/auth/signIn"
 
 
 const formSchema = z.object({
@@ -38,11 +39,12 @@ const FormElement = () =>{
     },
   })
  
+
+  const { mutate: login, isError, error, isPending } = useSignIn();
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+    login(values)
   }
 
      return (
@@ -86,6 +88,10 @@ const FormElement = () =>{
             </div> 
             </FormDescription> 
           </form> 
+          {isError && <p className="text-red-500">Login failed: {String(error)}</p>}
+          {isPending && (
+        <h1 className="m-auto text-center text-lg">Signing you in...</h1>
+      )}
         </Form> 
       )
 } 

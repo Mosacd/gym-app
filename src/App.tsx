@@ -1,32 +1,77 @@
-import React from 'react';
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboardLayout';
-import Main from './pages/mainPage';
 import { ThemeProvider } from './componentsShadcn/theme/theme-provider';
-import Products from './pages/productsPage';
-import ProductDetail from './pages/singleProductPage';
-import CartPage from './pages/cartPage';
-import Profile from './pages/profilePage';
-import IdOrder from './pageComponents/idOrder/idOrder';
-import LogIn from './pageComponents/logIn/logIn';
-import Register from './pageComponents/register/register';
+import AuthGuardLogIn from './pageComponents/route-guards/auth/forSignIn';
+import AuthGuardLogOut from './pageComponents/route-guards/auth/forSignOut';
+import AuthLayout from './layouts/authlayout';
+import { Loader } from './pageComponents/loader/loader';
 
+const LogIn = lazy(() => import("./pageComponents/logIn/logIn"));
+const Register = lazy(() => import("./pageComponents/register/register"));
+
+const Main = lazy(() => import("./pages/mainPage"));
+const Products = lazy(() => import("./pages/productsPage"));
+const ProductDetail = lazy(() => import("./pages/singleProductPage"));
+const CartPage = lazy(() => import("./pages/cartPage"));
+const Profile = lazy(() => import("./pages/profilePage"));
+const IdOrder = lazy(() => import("./pageComponents/idOrder/idOrder"));
 
 const App: React.FC = () => {
+
+
+  // const { handleSetUser } = useAuthContext();
+
+  // useEffect(() => {
+  //   supabase.auth.getSession().then(({ data: { session } }) => {
+  //     console.log("Session: ", session);
+  //     if (session) {
+  //       handleSetUser({
+  //         id: session.user.id,
+  //         email: session.user.email,
+  //         token: session.access_token,
+  //       });
+  //     } else {
+  //       handleSetUser(null);
+  //     }
+  //   });
+
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((_event, session) => {
+  //     console.log("Session on auth state change:", session);
+  //     if (session) {
+  //       handleSetUser({
+  //         id: session.user.id,
+  //         email: session.user.email,
+  //         token: session.access_token,
+  //       });
+  //     } else {
+  //       handleSetUser(null);
+  //     }
+  //   });
+
+  //   return () => subscription.unsubscribe();
+  // }, []);
+
   return (
     <ThemeProvider defaultTheme='light' storageKey="vite-ui-theme">
     <Routes>  
     <Route path="/" element={<Navigate to='dashboard/main' replace />} />
 
       <Route path ='dashboard' element={<DashboardLayout />}>
-        <Route index path='main' element={<Main/>} />
-        <Route path='products' element={<Products/>} />
-        <Route path='productDetail' element={<ProductDetail/>} />
-        <Route path='cartPage' element={<CartPage/>} />
-        <Route path='profilePage' element={<Profile/>} />
-        <Route path='idOrder' element={<IdOrder/>} />
-        <Route path='signIn' element={<LogIn/>} />
-        <Route path='register' element={<Register/>} />
+        <Route path='main' element={<Suspense fallback={<Loader/>}><Main/></Suspense>} />
+        <Route path='products' element={<Suspense fallback={<Loader/>}><Products/></Suspense>} />
+        <Route path='productDetail' element={<Suspense fallback={<Loader/>}><ProductDetail/></Suspense>} />
+        <Route path='cartPage' element={<Suspense fallback={<Loader/>}><CartPage/></Suspense>} />
+        <Route path='profilePage' element={<AuthGuardLogOut><Suspense fallback={<Loader/>}><Profile/></Suspense></AuthGuardLogOut>} />
+          <Route path='idOrder' element={<Suspense fallback={<Loader/>}><IdOrder/></Suspense>} />
+          </Route>
+
+      <Route path="/auth" element ={<AuthGuardLogIn><AuthLayout/></AuthGuardLogIn>}>
+      <Route path='signIn' element={<Suspense fallback={<Loader/>}><LogIn/></Suspense>} />
+        <Route path='register' element={<Suspense fallback={<Loader/>}><Register/></Suspense>} />
+   
       </Route>
       
     </Routes>

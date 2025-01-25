@@ -1,9 +1,17 @@
 import profileImage from "@/assets/Profile image.png";
 import { Avatar, AvatarFallback } from "@/componentsShadcn/ui/avatar";
 import { Button } from "@/componentsShadcn/ui/button";
+import { useSignOut } from "@/reactQuery/auth/signOut";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
 const ProfileHero = () =>{
+
+  const { mutate: logout } = useSignOut();
+
+const handleLogout = () => {
+  logout();
+};
+
     return(
 <div className="bg-neutral-800 flex-col gap-4 md:flex-row md:items-end border-y-2 border-y-neutral-800 px-10 lg:px-20 pt-10 pb-5 flex sm:justify-between ">
         <div className="flex flex-col sm:flex-row items-center gap-5">
@@ -20,7 +28,7 @@ const ProfileHero = () =>{
             <h2 className="text-gray-300">Tbilisi,Georgia</h2>
           </div>
         </div>
-        <Button className="max-w-60 w-full self-center sm:self-end">Sign Out</Button>
+        <Button onClick={handleLogout} className="max-w-60 w-full self-center sm:self-end">Sign Out</Button>
       </div>
     )
 }
