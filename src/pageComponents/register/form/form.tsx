@@ -12,7 +12,8 @@ import {
   FormMessage,
 } from "@/componentsShadcn/ui/form"
 import { Input } from "@/componentsShadcn/ui/input"
-import { useRegister } from "@/reactQuery/auth/register"
+import { useRegister } from "@/reactQuery/mutations/auth/register"
+import { Link } from "react-router-dom"
 
 
 const formSchema = z.object({
@@ -120,7 +121,7 @@ const RegisterForm = () =>{
             <FormDescription>
             <div className="flex justify-center gap-2">
               <h1 className="text-sm text-gray-600 dark:text-gray-500">Already have an account?</h1>
-              <h1 className="text-sm text-purple-900 font-semibold hover:underline cursor-pointer">Log In</h1>
+              <Link to="/auth/signin"><h1 className="text-sm text-purple-900 font-semibold hover:underline cursor-pointer">Log In</h1></Link>
             </div>
             </FormDescription>
           </form>

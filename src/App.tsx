@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboardLayout';
 import { ThemeProvider } from './componentsShadcn/theme/theme-provider';
@@ -6,10 +6,11 @@ import AuthGuardLogIn from './pageComponents/route-guards/auth/forSignIn';
 import AuthGuardLogOut from './pageComponents/route-guards/auth/forSignOut';
 import AuthLayout from './layouts/authlayout';
 import { Loader } from './pageComponents/loader/loader';
+import { useAuthContext } from './context/auth/hooks/useAuthContext';
+import { supabase } from './supabase/supabase';
 
 const LogIn = lazy(() => import("./pageComponents/logIn/logIn"));
 const Register = lazy(() => import("./pageComponents/register/register"));
-
 const Main = lazy(() => import("./pages/mainPage"));
 const Products = lazy(() => import("./pages/productsPage"));
 const ProductDetail = lazy(() => import("./pages/singleProductPage"));
@@ -20,39 +21,39 @@ const IdOrder = lazy(() => import("./pageComponents/idOrder/idOrder"));
 const App: React.FC = () => {
 
 
-  // const { handleSetUser } = useAuthContext();
+  const { handleSetUser } = useAuthContext();
 
-  // useEffect(() => {
-  //   supabase.auth.getSession().then(({ data: { session } }) => {
-  //     console.log("Session: ", session);
-  //     if (session) {
-  //       handleSetUser({
-  //         id: session.user.id,
-  //         email: session.user.email,
-  //         token: session.access_token,
-  //       });
-  //     } else {
-  //       handleSetUser(null);
-  //     }
-  //   });
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("Session: ", session);
+      if (session) {
+        handleSetUser({
+          id: session.user.id,
+          email: session.user.email,
+          token: session.access_token,
+        });
+      } else {
+        handleSetUser(null);
+      }
+    });
 
-  //   const {
-  //     data: { subscription },
-  //   } = supabase.auth.onAuthStateChange((_event, session) => {
-  //     console.log("Session on auth state change:", session);
-  //     if (session) {
-  //       handleSetUser({
-  //         id: session.user.id,
-  //         email: session.user.email,
-  //         token: session.access_token,
-  //       });
-  //     } else {
-  //       handleSetUser(null);
-  //     }
-  //   });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      console.log("Session on auth state change:", session);
+      if (session) {
+        handleSetUser({
+          id: session.user.id,
+          email: session.user.email,
+          token: session.access_token,
+        });
+      } else {
+        handleSetUser(null);
+      }
+    });
 
-  //   return () => subscription.unsubscribe();
-  // }, []);
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <ThemeProvider defaultTheme='light' storageKey="vite-ui-theme">

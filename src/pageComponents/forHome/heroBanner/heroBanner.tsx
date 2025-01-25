@@ -2,6 +2,7 @@ import React from 'react';
 import gymheroimg from '@/assets/pexels-binyaminmellish-17840.jpg';
 import { Button } from '../../../componentsShadcn/ui/button';
 import { heroSectionClass, overlayClass, contentClass, headingClass, paragraphClass, buttonContainerClass, buttonClass, ghostButtonClass } from './heroBanner.styles';
+import { Link } from 'react-router-dom';
 
 const HeroBanner: React.FC = () => {
   return (
@@ -24,9 +25,11 @@ const HeroBanner: React.FC = () => {
           Premium gear for athletes who demand the best.
         </p>
         <div className={buttonContainerClass()}>
-          <Button variant={'default'} className={buttonClass()}>
+        <Link to="/dashboard/products">
+        <Button variant={'default'} className={buttonClass()}>
             Shop Now
           </Button>
+          </Link> 
           <Button variant={'ghost'} className={ghostButtonClass()}>
             Learn More
           </Button>
