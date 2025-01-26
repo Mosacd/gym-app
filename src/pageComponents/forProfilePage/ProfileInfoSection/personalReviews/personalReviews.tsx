@@ -1,20 +1,14 @@
 import { Card, CardContent } from "@/componentsShadcn/ui/card";
+import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
+import { useGetUserReviews } from "@/reactQuery/query/reviews";
+import { Link } from "react-router-dom";
 
 const PersonalReviews = () => {
-  const comments = [
-    {
-      id: 1,
-      author_username: "me",
-      product: "Fuckass hoodie",
-      created_at: "24 october",
-    },
-    {
-      id: 2,
-      author_username: "isev me",
-      product: "Fuckass hoodie",
-      created_at: "24 october",
-    },
-  ];
+  const {user} = useAuthContext();
+
+        const {data:userReviews = [] } =  useGetUserReviews({ userId: user?.id });
+
+
 
   return (
     <Card className="border-4 dark:border-neutral-800">
@@ -35,13 +29,15 @@ const PersonalReviews = () => {
       </div>
     </li> */}
       <div  className="flex gap-2 flex-wrap justify-center">
-        {comments.map((comment) => {
+        {userReviews.map((comment) => {
           return(
+            <Link to={`/dashboard/productDetail/${comment.product_id}`}>
             <div className="border-2 dark:border-neutral-800 p-5 rounded-md">
-            <h1 className="text-lg">{comment.product} Review</h1>
+            <h1 className="text-lg">{comment.product_id} Review</h1>
             <p>likes:34</p>
             <h1>{comment.created_at}</h1>
           </div>
+          </Link>
           )
         })}
         </div>

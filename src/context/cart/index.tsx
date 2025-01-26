@@ -19,9 +19,12 @@ interface CartContextType {
   changeQuantity: (id: string, action: "increment" | "decrement") => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const CartContext = createContext<CartContextType | null>(null);
 
-export const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+export const CartProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
   // Initialize cart state with data from localStorage or an empty array
   const [cart, setCart] = useState<CartItem[]>(() => {
     const storedCart = localStorage.getItem("cart");

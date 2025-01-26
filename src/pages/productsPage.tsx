@@ -1,15 +1,16 @@
+import { useSearchParams } from "react-router-dom";
 import FeaturesSection from "@/pageComponents/forHome/featuresSection/featuresSection";
 import Filters from "@/pageComponents/forProducts/filter/filter";
 import ProductsHeroBanner from "@/pageComponents/forProducts/heroBanner/hero";
 import SearchBar from "@/pageComponents/forProducts/search/search";
 import SortMenu from "@/pageComponents/forProducts/SortMenu/SortMenu";
-import ProductsGrid from "@/pageComponents/forProducts/products/products";
-
+import VirtualizedProductGrid from "@/pageComponents/forProducts/products/products";
 import FiltersMobile from "@/pageComponents/forProducts/filter/filretMobile";
 
-
-
 const Products = () => {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("searchedtext") || "";
+
   return (
     <>
       <ProductsHeroBanner />
@@ -25,7 +26,7 @@ const Products = () => {
               <SortMenu />
               <FiltersMobile />
             </div>
-            <ProductsGrid />
+            <VirtualizedProductGrid searchQuery={searchQuery} />
           </main>
         </div>
       </div>

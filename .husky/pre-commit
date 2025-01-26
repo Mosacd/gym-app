@@ -1,0 +1,3 @@
+yarn ts-check
+yarn lint
+yarn format 

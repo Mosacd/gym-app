@@ -20,7 +20,9 @@ const ProductDetail = () => {
   const handleAddToCart = (product: { id: number; name: string; price: string|number, category:string, created_at:string, description:string, image_url:string }) => {
     addToCart({ ...product, quantity: 1 });
   };
+
   
+
   const { data: product, isLoading } = useGetSingleProduct(
     {
       queryOptions: {
@@ -85,7 +87,7 @@ const handleAddToWishlist = () => {
         <CaruselForPages productType={product?.category} headerText="Your May Also Like" carouselType="category"/>
         <div className="flex flex-col items-center px-10 md:px-20 gap-4">
         <h1 className="text-2xl sm:text-3xl block h-12 dark:text-white font-semibold border-b-black dark:border-b-white border-b-2 w-full max-w-screen-lg text-center">Reviews</h1>
-        <VirtualizedAnswerList/>
+        <VirtualizedAnswerList />
         </div>
         
         <FeaturesSection />
