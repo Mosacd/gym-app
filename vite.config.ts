@@ -1,9 +1,11 @@
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    outDir: "build", // Change output directory to "build" if needed
-  },
+  resolve: {
+    alias: {
+      '@': '/src',  // This makes the 'src' folder accessible as '@'
+    }
+  }
 });
