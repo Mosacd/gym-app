@@ -1,6 +1,7 @@
 import { Button } from "@/componentsShadcn/ui/button";
 import productImage from "@/assets/Hoodie.webp";
 
+
 const IdOrder = () =>{
 
     const products = [
@@ -39,6 +40,7 @@ const IdOrder = () =>{
             quantity: 1,
           },
       ];
+
 
     return (
         <div className="flex flex-col items-center p-20 min-h-screen">

@@ -69,7 +69,10 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
     setCart((prevCart) => prevCart.filter((item) => item.id !== Number(id)));
   };
 
-  const clearCart = () => setCart([]);
+  const clearCart = () => {
+    setCart([]); // Clear cart state
+    localStorage.removeItem("cart"); // Remove cart from localStorage
+  };
 
   const contextValue = useMemo(
     () => ({ cart, addToCart, removeFromCart, clearCart, changeQuantity }),

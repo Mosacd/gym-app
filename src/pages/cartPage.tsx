@@ -2,10 +2,13 @@ import { Button } from "@/componentsShadcn/ui/button";
 import { Input } from "@/componentsShadcn/ui/input";
 import { useCartContext } from "@/context/cart/hooks/useCartContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/componentsShadcn/ui/card";
+import { usePlaceOrder } from "@/reactQuery/mutations/order";
+import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
+
 
 const CartPage = () => {
   const { cart, removeFromCart, clearCart,  changeQuantity  } = useCartContext();
-
+  const {user} = useAuthContext();
   // Calculate total and other costs
   const totalCost = cart.reduce(
     (acc, item) => acc + Number(item.price) * item.quantity,
@@ -13,6 +16,39 @@ const CartPage = () => {
   );
   const deliveryCost = 2; // Example delivery fee
   const finalCost = totalCost + deliveryCost;
+
+  const { mutate: placeOrder, isPending, isError } = usePlaceOrder();
+  
+
+  const handlePlaceOrder = () => {
+    // Validate that the cart is not empty
+    if (cart.length === 0) {
+     console.log("cart length is 0")
+      return;
+    } else if(user === null){
+        clearCart();
+    return;
+    }
+  
+    // Map cart items to the format expected by the mutation
+    const orderItems = cart.map(item => ({
+      productId: item.id,
+      quantity: item.quantity
+    }));
+  
+    placeOrder({
+      // Replace with actual user ID from authentication context
+      userId: user.id, 
+      items: orderItems,
+      totalPrice: totalCost
+    });
+  };
+
+ 
+
+  if (isError) {
+    console.log("failed to place order")
+  }
 
   return (
     <div className="py-24 px-2 sm:px-8">
@@ -221,7 +257,13 @@ const CartPage = () => {
               <span>Total Cost</span>
               <span>{finalCost.toFixed(2)}$</span>
             </div>
-            <Button className="w-full text-white py-2 mt-4">Make Order</Button>
+                      <Button 
+            onClick={handlePlaceOrder} 
+            disabled={cart.length === 0 || isPending} 
+            className="w-full text-white py-2 mt-4"
+          >
+            {isPending ? 'Placing Order...' : 'Make Order'}
+          </Button>
           </div>
         </div>
       </div>
