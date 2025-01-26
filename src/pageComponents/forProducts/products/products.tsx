@@ -4,13 +4,18 @@ import { Button } from '@/componentsShadcn/ui/button';
 import { useGetProductList } from '@/reactQuery/query/products';
 import { mapProductTableData } from '@/supabase/products';
 import { Link } from 'react-router-dom';
-
+import { useCartContext } from '@/context/cart/hooks/useCartContext';
 
 
 const VirtualizedProductGrid: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [columns, setColumns] = useState(4);
+  const { addToCart } = useCartContext();
 
+
+  const handleAddToCart = (product: { id: number; name: string; price: string|number, category:string, created_at:string, description:string, image_url:string }) => {
+    addToCart({ ...product, quantity: 1 });
+  };
   // Fetch products using the react-query hook
   const { data: productList = [], isLoading, isError } = useGetProductList({ queryOptions: { select: mapProductTableData } });
 
@@ -106,7 +111,15 @@ const VirtualizedProductGrid: React.FC = () => {
                               ${product.price}
                             </p>
 
-                            <Button>Add To Cart</Button>
+                            <Button 
+                              onClick={(e) => {
+                                e.stopPropagation(); // Prevent event from bubbling up to the Link
+                                e.preventDefault();
+                                handleAddToCart(product);
+                              }}
+                            >
+                              Add To Cart
+                            </Button>
                           </div>
                         </div>
                       </div>

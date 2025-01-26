@@ -1,0 +1,82 @@
+import React, { createContext, useState, useEffect, useMemo } from "react";
+
+type CartItem = {
+  id: number; // Unique identifier for the item
+  name: string; // Item name
+  price: number | string; // Item price
+  quantity: number; // Quantity of the item
+  category: string;
+  created_at: string;
+  description: string;
+  image_url: string;
+};
+
+interface CartContextType {
+  cart: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: string) => void;
+  clearCart: () => void;
+  changeQuantity: (id: string, action: "increment" | "decrement") => void;
+}
+
+export const CartContext = createContext<CartContextType | null>(null);
+
+export const CartProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+  // Initialize cart state with data from localStorage or an empty array
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  const addToCart = (item: CartItem) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+      if (existingItem) {
+        // Update quantity if item already exists
+        return prevCart.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+            : cartItem
+        );
+      }
+      // Add new item to cart
+      return [...prevCart, item];
+    });
+  };
+
+  const changeQuantity = (id: string, action: "increment" | "decrement") => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === Number(id)
+          ? {
+              ...item,
+              quantity:
+                action === "increment"
+                  ? item.quantity + 1
+                  : Math.max(1, item.quantity - 1), // Ensure quantity doesn't go below 1
+            }
+          : item
+      )
+    );
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== Number(id)));
+  };
+
+  const clearCart = () => setCart([]);
+
+  const contextValue = useMemo(
+    () => ({ cart, addToCart, removeFromCart, clearCart, changeQuantity }),
+    [cart]
+  );
+
+  return (
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
+  );
+};
