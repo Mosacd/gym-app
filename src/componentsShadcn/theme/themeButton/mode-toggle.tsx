@@ -1,16 +1,20 @@
 import { Moon, Sun } from "lucide-react";
-import { Button } from '../../../componentsShadcn/ui/button';
-import { useTheme } from '../theme-provider';
-import { iconClass, iconClassDark, themeToggleButtonClass } from "./mode-toggle.styles";
+import { Button } from "../../../componentsShadcn/ui/button";
+import { useTheme } from "../theme-provider";
+import {
+  iconClass,
+  iconClassDark,
+  themeToggleButtonClass,
+} from "./mode-toggle.styles";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
-  const isDark = theme === "dark"
+  const isDark = theme === "dark";
 
   const toggleTheme = () => {
-    setTheme(isDark ? "light" : "dark")
-  }
+    setTheme(isDark ? "light" : "dark");
+  };
 
   return (
     <Button
@@ -18,10 +22,10 @@ export function ThemeToggle() {
       className={themeToggleButtonClass()}
       aria-label="Toggle theme"
     >
-      <Sun className={iconClass({ theme: isDark ? 'dark' : 'light' })} />
-      <Moon className={iconClassDark({ theme: isDark ? 'dark' : 'light' })} />
+      <Sun className={iconClass({ theme: isDark ? "dark" : "light" })} />
+      <Moon className={iconClassDark({ theme: isDark ? "dark" : "light" })} />
     </Button>
   );
-};
+}
 
 export default ThemeToggle;

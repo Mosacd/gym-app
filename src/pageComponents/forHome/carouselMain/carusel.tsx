@@ -1,10 +1,10 @@
 import { Card, CardContent } from "@/componentsShadcn/ui/card";
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/componentsShadcn/ui/carousel";
 import {
   wrapper,
@@ -17,7 +17,11 @@ import {
   productName,
   productPrice,
 } from "./carousel.styles";
-import { useGetProductListWithBestSelling, useGetProductListWithCategory, useGetProductListWithWorstSelling } from "@/reactQuery/query/products";
+import {
+  useGetProductListWithBestSelling,
+  useGetProductListWithCategory,
+  useGetProductListWithWorstSelling,
+} from "@/reactQuery/query/products";
 import { mapProductTableData } from "@/supabase/products";
 import { Link } from "react-router-dom";
 
@@ -27,19 +31,23 @@ interface CarouselProps {
   carouselType: "bestSelling" | "category" | "worstSelling";
 }
 
-const CaruselForPages: React.FC<CarouselProps> = ({ productType, headerText, carouselType }) => {
+const CaruselForPages: React.FC<CarouselProps> = ({
+  productType,
+  headerText,
+  carouselType,
+}) => {
   const { data: productWithCategory = [] } = useGetProductListWithCategory(
     { queryOptions: { select: mapProductTableData } },
-    productType
+    productType,
   );
 
-  const { data: productBestSelling = [] } = useGetProductListWithBestSelling(
-    { queryOptions: { select: mapProductTableData } }
-  );
+  const { data: productBestSelling = [] } = useGetProductListWithBestSelling({
+    queryOptions: { select: mapProductTableData },
+  });
 
-  const { data: productWorstSelling = [] } = useGetProductListWithWorstSelling(
-    { queryOptions: { select: mapProductTableData } }
-  );
+  const { data: productWorstSelling = [] } = useGetProductListWithWorstSelling({
+    queryOptions: { select: mapProductTableData },
+  });
 
   // Select the products based on carouselType
   const products = (() => {

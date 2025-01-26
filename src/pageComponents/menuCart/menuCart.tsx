@@ -18,7 +18,7 @@ const ShoppingCart = () => {
   // Calculate total price
   const totalPrice = cart.reduce(
     (total, product) => total + Number(product.price) * product.quantity,
-    0
+    0,
   );
 
   return (
@@ -73,7 +73,9 @@ const ShoppingCart = () => {
             })}
           </div>
           <div className="w-full gap-4 flex flex-col sm:flex-row items-center justify-between mt-5">
-            <h1 className="text-lg font-semibold">Total Price: ${totalPrice.toFixed(2)}</h1>
+            <h1 className="text-lg font-semibold">
+              Total Price: ${totalPrice.toFixed(2)}
+            </h1>
             <Link
               className="w-full max-w-sm sm:max-w-48"
               to="/dashboard/cartPage"

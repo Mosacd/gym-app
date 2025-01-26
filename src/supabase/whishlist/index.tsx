@@ -1,15 +1,17 @@
 import { Product } from "../products";
 import { supabase } from "../supabase";
 
-
-export const getWishlistedProducts = async (userId: string | undefined):Promise<Product[]> => {
+export const getWishlistedProducts = async (
+  userId: string | undefined,
+): Promise<Product[]> => {
   if (!userId) {
     throw new Error("User ID is required to fetch wishlisted products.");
   }
 
   const { data, error } = await supabase
     .from("wishlist")
-    .select(`
+    .select(
+      `
       id,
       product:product_id (
         id,
@@ -20,24 +22,34 @@ export const getWishlistedProducts = async (userId: string | undefined):Promise<
         category,
         image_url
       )
-    `)
+    `,
+    )
     .eq("user_id", userId);
-        console.log(data)
+  console.log(data);
   if (error) {
     console.error("Error fetching wishlisted products:", error.message);
     throw new Error(error.message);
   }
 
   // Transform the response if needed (optional)
-  return data?.map((wishlistItem) => ({
-    ...wishlistItem.product,
-  })) as Product[] || [];
+  return (
+    (data?.map((wishlistItem) => ({
+      ...wishlistItem.product,
+    })) as Product[]) || []
+  );
 };
 
-
-export const addToWishlist = async ({ userId, productId }: { userId: string | undefined; productId: string | undefined }): Promise<void> => {
+export const addToWishlist = async ({
+  userId,
+  productId,
+}: {
+  userId: string | undefined;
+  productId: string | undefined;
+}): Promise<void> => {
   if (!userId || !productId) {
-    throw new Error("User ID and Product ID are required to add to the wishlist.");
+    throw new Error(
+      "User ID and Product ID are required to add to the wishlist.",
+    );
   }
 
   const { error } = await supabase

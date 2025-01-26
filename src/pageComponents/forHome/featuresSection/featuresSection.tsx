@@ -1,4 +1,10 @@
-import { containerClass, featureClass, iconClass, sectionClass, titleClass } from "./featuresSection.styles";
+import {
+  containerClass,
+  featureClass,
+  iconClass,
+  sectionClass,
+  titleClass,
+} from "./featuresSection.styles";
 import { features } from "./featuresSection.data";
 
 const FeaturesSection: React.FC = () => {

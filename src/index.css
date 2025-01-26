@@ -2,14 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-
-html,body{
+html,
+body {
   margin: 0;
   overflow-x: hidden;
   padding: 0;
   width: 100%;
 }
-
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -80,7 +79,6 @@ button:focus-visible {
   }
 } */
 
-
 /* html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -124,12 +122,8 @@ table {
 	border-spacing: 0;
 } */
 
-
-
 @layer base {
   :root {
-
-
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
 }

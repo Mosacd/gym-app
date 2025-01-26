@@ -44,7 +44,7 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
         return prevCart.map((cartItem) =>
           cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-            : cartItem
+            : cartItem,
         );
       }
       // Add new item to cart
@@ -63,8 +63,8 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
                   ? item.quantity + 1
                   : Math.max(1, item.quantity - 1), // Ensure quantity doesn't go below 1
             }
-          : item
-      )
+          : item,
+      ),
     );
   };
 
@@ -79,7 +79,7 @@ export const CartProvider: React.FC<React.PropsWithChildren> = ({
 
   const contextValue = useMemo(
     () => ({ cart, addToCart, removeFromCart, clearCart, changeQuantity }),
-    [cart]
+    [cart],
   );
 
   return (

@@ -1,53 +1,54 @@
 import { Button } from "@/componentsShadcn/ui/button";
 import { Input } from "@/componentsShadcn/ui/input";
 import { useCartContext } from "@/context/cart/hooks/useCartContext";
-import { Card, CardContent, CardHeader, CardTitle } from "@/componentsShadcn/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/componentsShadcn/ui/card";
 import { usePlaceOrder } from "@/reactQuery/mutations/order";
 import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 
-
 const CartPage = () => {
-  const { cart, removeFromCart, clearCart,  changeQuantity  } = useCartContext();
-  const {user} = useAuthContext();
+  const { cart, removeFromCart, clearCart, changeQuantity } = useCartContext();
+  const { user } = useAuthContext();
   // Calculate total and other costs
   const totalCost = cart.reduce(
     (acc, item) => acc + Number(item.price) * item.quantity,
-    0
+    0,
   );
   const deliveryCost = 2; // Example delivery fee
   const finalCost = totalCost + deliveryCost;
 
   const { mutate: placeOrder, isPending, isError } = usePlaceOrder();
-  
 
   const handlePlaceOrder = () => {
     // Validate that the cart is not empty
     if (cart.length === 0) {
-     console.log("cart length is 0")
+      console.log("cart length is 0");
       return;
-    } else if(user === null){
-        clearCart();
-    return;
+    } else if (user === null) {
+      clearCart();
+      return;
     }
-  
+
     // Map cart items to the format expected by the mutation
-    const orderItems = cart.map(item => ({
+    const orderItems = cart.map((item) => ({
       productId: item.id,
-      quantity: item.quantity
+      quantity: item.quantity,
     }));
-  
+
     placeOrder({
       // Replace with actual user ID from authentication context
-      userId: user.id, 
+      userId: user.id,
       items: orderItems,
-      totalPrice: totalCost
+      totalPrice: totalCost,
     });
   };
 
- 
-
   if (isError) {
-    console.log("failed to place order")
+    console.log("failed to place order");
   }
 
   return (
@@ -88,7 +89,12 @@ const CartPage = () => {
                     </td>
                     <td>
                       <div className="flex items-center justify-center gap-2 sm:gap-4">
-                        <Button onClick={() => changeQuantity(product.id.toString(), "decrement")} className="h-8 w-8 bg-gray-200 text-black hover:bg-gray-300">
+                        <Button
+                          onClick={() =>
+                            changeQuantity(product.id.toString(), "decrement")
+                          }
+                          className="h-8 w-8 bg-gray-200 text-black hover:bg-gray-300"
+                        >
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -104,7 +110,12 @@ const CartPage = () => {
                           </svg>
                         </Button>
                         <div className="text-center">{product.quantity}</div>
-                        <Button onClick={() => changeQuantity(product.id.toString(), "increment")} className="h-8 w-8 text-sm bg-gray-200 text-black hover:bg-gray-300">
+                        <Button
+                          onClick={() =>
+                            changeQuantity(product.id.toString(), "increment")
+                          }
+                          className="h-8 w-8 text-sm bg-gray-200 text-black hover:bg-gray-300"
+                        >
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -157,8 +168,12 @@ const CartPage = () => {
                       className="w-16 h-16 object-cover rounded-full"
                     />
                     <div>
-                      <CardTitle className="text-base">{product.name}</CardTitle>
-                      <p className="text-sm text-gray-500">{Number(product.price).toFixed(2)}$</p>
+                      <CardTitle className="text-base">
+                        {product.name}
+                      </CardTitle>
+                      <p className="text-sm text-gray-500">
+                        {Number(product.price).toFixed(2)}$
+                      </p>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -223,9 +238,7 @@ const CartPage = () => {
               className="max-w-sm px-4 py-2 border border-gray-300 rounded focus:outline-none"
             />
             <div className="w-full md:max-w-xs flex flex-col md:flex-row items-center gap-4">
-              <Button className="w-full max-w-sm text-white">
-                Use Coupon
-              </Button>
+              <Button className="w-full max-w-sm text-white">Use Coupon</Button>
               <Button
                 variant={"secondary"}
                 onClick={clearCart}
@@ -257,13 +270,13 @@ const CartPage = () => {
               <span>Total Cost</span>
               <span>{finalCost.toFixed(2)}$</span>
             </div>
-                      <Button 
-            onClick={handlePlaceOrder} 
-            disabled={cart.length === 0 || isPending} 
-            className="w-full text-white py-2 mt-4"
-          >
-            {isPending ? 'Placing Order...' : 'Make Order'}
-          </Button>
+            <Button
+              onClick={handlePlaceOrder}
+              disabled={cart.length === 0 || isPending}
+              className="w-full text-white py-2 mt-4"
+            >
+              {isPending ? "Placing Order..." : "Make Order"}
+            </Button>
           </div>
         </div>
       </div>

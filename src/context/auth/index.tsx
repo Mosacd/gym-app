@@ -10,12 +10,12 @@ type User = {
 } | null;
 
 type Profile = {
-    avatar_url?: string;
-    full_name_en?: string ;
-    full_name_ka?: string ;
-    phone_number?: string ;
-    username?: string ;
-    address?: string;
+  avatar_url?: string;
+  full_name_en?: string;
+  full_name_ka?: string;
+  phone_number?: string;
+  username?: string;
+  address?: string;
 };
 
 interface AuthContextType {
@@ -24,7 +24,6 @@ interface AuthContextType {
   loading: boolean;
   handleSetUser: (user: User) => void;
 }
-
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext<AuthContextType | null>(null);
@@ -38,18 +37,19 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setLoading(false);
   }, []);
 
-    const {data: profileData = {
-      avatar_url:  "",
+  const {
+    data: profileData = {
+      avatar_url: "",
       full_name_en: "",
       full_name_ka: "",
       phone_number: "",
-      address:  "",
+      address: "",
       username: "",
-    }} = useGetProfileInfo({ queryOptions: { select: mapProfileTableData } }, user?.id);
-
-
-
-
+    },
+  } = useGetProfileInfo(
+    { queryOptions: { select: mapProfileTableData } },
+    user?.id,
+  );
 
   return (
     <AuthContext.Provider value={{ user, profileData, loading, handleSetUser }}>

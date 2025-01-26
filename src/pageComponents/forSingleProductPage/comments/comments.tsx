@@ -14,7 +14,9 @@ const VirtualizedReviewList: React.FC = () => {
   const [message, setMessage] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
   const reviewHeights = useRef<Map<number, number>>(new Map());
-  const { data: reviews = [], refetch } = useGetProductReviews({ productId: id });
+  const { data: reviews = [], refetch } = useGetProductReviews({
+    productId: id,
+  });
 
   const handleSubmit = () => {
     if (message.trim() === "") return;
@@ -28,7 +30,7 @@ const VirtualizedReviewList: React.FC = () => {
           refetch();
         },
         onError: (error) => console.error("Error submitting review:", error),
-      }
+      },
     );
   };
 
@@ -48,7 +50,9 @@ const VirtualizedReviewList: React.FC = () => {
         ref={containerRef}
         className="h-[475px] block-shadow dark:border-neutral-800 border-2 max-w-screen-lg w-full overflow-auto rounded-lg scrollbar-hide"
       >
-        <ul style={{ height: virtualizer.getTotalSize(), position: "relative" }}>
+        <ul
+          style={{ height: virtualizer.getTotalSize(), position: "relative" }}
+        >
           {virtualizer.getVirtualItems().map((row) => (
             <li
               key={reviews[row.index].id}
@@ -71,7 +75,9 @@ const VirtualizedReviewList: React.FC = () => {
             >
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="font-semibold">{reviews[row.index].user_id}</span>
+                  <span className="font-semibold">
+                    {reviews[row.index].user_id}
+                  </span>
                   <span className="text-sm text-gray-500">
                     {formatTimestamp(reviews[row.index].created_at)}
                   </span>

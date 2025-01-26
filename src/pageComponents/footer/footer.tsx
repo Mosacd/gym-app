@@ -1,9 +1,19 @@
 import { links, socialLinks } from "./footer.data";
-import { borderClass, containerClass, flexContainerClass, flexItemClass, footerClass, headingClass, linkClass, navClass, socialContainerClass, socialLabelClass, socialLinkClass } from "./footer.styles";
+import {
+  borderClass,
+  containerClass,
+  flexContainerClass,
+  flexItemClass,
+  footerClass,
+  headingClass,
+  linkClass,
+  navClass,
+  socialContainerClass,
+  socialLabelClass,
+  socialLinkClass,
+} from "./footer.styles";
 
 const Footer = () => {
-
-
   return (
     <footer className={footerClass()}>
       <div className={containerClass()}>
@@ -11,7 +21,7 @@ const Footer = () => {
           <div className={flexItemClass()}>
             <h1 className={headingClass()}>Gymgear</h1>
           </div>
-          
+
           <div className={flexItemClass()}>
             <nav className={navClass()}>
               {links.map((link, index) => (
@@ -36,7 +46,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-
 };
 
 export default Footer;

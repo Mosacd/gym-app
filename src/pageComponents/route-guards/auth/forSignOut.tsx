@@ -10,7 +10,7 @@ const AuthGuardLogOut: React.FC<PropsWithChildren> = ({ children }) => {
   console.log("AuthGuardLogOut - loading:", loading);
 
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   if (!user) {

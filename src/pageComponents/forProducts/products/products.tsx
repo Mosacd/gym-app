@@ -6,7 +6,9 @@ import { mapProductTableData } from "@/supabase/products";
 import { Link } from "react-router-dom";
 import { useCartContext } from "@/context/cart/hooks/useCartContext";
 
-const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
+const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
+  searchQuery,
+}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [columns, setColumns] = useState(4);
   const { addToCart } = useCartContext();
@@ -24,14 +26,17 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({ searchQuery
   };
 
   // Fetch products using the react-query hook
-  const { data: productList = [], isLoading, isError } = useGetProductList({
+  const {
+    data: productList = [],
+    isLoading,
+    isError,
+  } = useGetProductList({
     queryOptions: { select: mapProductTableData },
   });
-  
 
   // Filter the products based on the search query
   const filteredProducts = productList.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const ROW_HEIGHT = 310;
@@ -39,9 +44,12 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({ searchQuery
   useEffect(() => {
     const updateColumns = () => {
       const width = window.innerWidth;
-      if (width < 640) setColumns(1); // sm
-      else if (width < 768) setColumns(1); // md
-      else if (width < 1024) setColumns(2); // lg
+      if (width < 640)
+        setColumns(1); // sm
+      else if (width < 768)
+        setColumns(1); // md
+      else if (width < 1024)
+        setColumns(2); // lg
       else setColumns(3); // xl and above
     };
 
@@ -101,7 +109,10 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({ searchQuery
 
                   const product = filteredProducts[productIndex];
                   return (
-                    <Link className="flex-1 mb-4 max-w-80 cursor-pointer" to={`/dashboard/productDetail/${product.id}`}>
+                    <Link
+                      className="flex-1 mb-4 max-w-80 cursor-pointer"
+                      to={`/dashboard/productDetail/${product.id}`}
+                    >
                       <div
                         key={product.id}
                         className="flex-1 mb-4 max-w-80 cursor-pointer"

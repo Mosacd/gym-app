@@ -4,11 +4,9 @@ import { useGetUserReviews } from "@/reactQuery/query/reviews";
 import { Link } from "react-router-dom";
 
 const PersonalReviews = () => {
-  const {user} = useAuthContext();
+  const { user } = useAuthContext();
 
-        const {data:userReviews = [] } =  useGetUserReviews({ userId: user?.id });
-
-
+  const { data: userReviews = [] } = useGetUserReviews({ userId: user?.id });
 
   return (
     <Card className="border-4 dark:border-neutral-800">
@@ -28,20 +26,19 @@ const PersonalReviews = () => {
         <div className="flex justify-between items-center text-sm"></div>
       </div>
     </li> */}
-      <div  className="flex gap-2 flex-wrap justify-center">
-        {userReviews.map((comment) => {
-          return(
-            <Link to={`/dashboard/productDetail/${comment.product_id}`}>
-            <div className="border-2 dark:border-neutral-800 p-5 rounded-md">
-            <h1 className="text-lg">{comment.product_id} Review</h1>
-            <p>likes:34</p>
-            <h1>{comment.created_at}</h1>
-          </div>
-          </Link>
-          )
-        })}
+        <div className="flex gap-2 flex-wrap justify-center">
+          {userReviews.map((comment) => {
+            return (
+              <Link to={`/dashboard/productDetail/${comment.product_id}`}>
+                <div className="border-2 dark:border-neutral-800 p-5 rounded-md">
+                  <h1 className="text-lg">{comment.product_id} Review</h1>
+                  <p>likes:34</p>
+                  <h1>{comment.created_at}</h1>
+                </div>
+              </Link>
+            );
+          })}
         </div>
-       
       </CardContent>
     </Card>
   );

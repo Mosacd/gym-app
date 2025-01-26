@@ -4,7 +4,9 @@ import { useSearchParams } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchText, setSearchText] = useState(searchParams.get("searchedtext") || "");
+  const [searchText, setSearchText] = useState(
+    searchParams.get("searchedtext") || "",
+  );
 
   useEffect(() => {
     const handler = setTimeout(() => {
