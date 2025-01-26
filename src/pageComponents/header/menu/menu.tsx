@@ -28,7 +28,7 @@ const Menu = () =>{
             {user ? (
               <SheetClose asChild>
                 <Link className="flex" to="/dashboard/profilePage">
-                  <Avatar className="h-10 w-10 border-4 border-purple-900">
+                  <Avatar className="h-10 w-10 border-4 border-purple-900 hover:scale-110 hover:border-none transition-all">
                     <AvatarImage src={profileData?.avatar_url} />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>

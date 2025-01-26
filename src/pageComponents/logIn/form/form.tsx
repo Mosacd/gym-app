@@ -49,6 +49,7 @@ const FormElement = () =>{
   }
 
      return (
+      <>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col items-center space-y-6 max-w-xs *:w-full px-2 w-full dark:text-white">
             <div className="space-y-3">
@@ -89,11 +90,14 @@ const FormElement = () =>{
             </div> 
             </FormDescription> 
           </form> 
+        </Form>
+        <div className="absolute top-2 w-full">
           {isError && <p className="text-red-500">Login failed: {String(error)}</p>}
           {isPending && (
-        <h1 className="m-auto text-center text-lg">Signing you in...</h1>
+        <h1 className="m-auto text-purple-900 font-semibold text-center text-lg">Signing you in...</h1>
       )}
-        </Form> 
+        </div>
+        </>
       )
 } 
     

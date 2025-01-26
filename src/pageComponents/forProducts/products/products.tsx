@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { Button } from '@/componentsShadcn/ui/button';
+import { useGetProductList } from '@/reactQuery/query/products';
 
 interface Product {
   id: string;
@@ -12,7 +13,9 @@ interface Product {
 const VirtualizedProductGrid: React.FC<{ products: Product[] }> = ({ products }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [columns, setColumns] = useState(4);
-  
+
+   const{data:productList,} = useGetProductList()
+
   // Constants for sizing
   const ROW_HEIGHT = 310;
 

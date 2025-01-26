@@ -9,6 +9,36 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      product: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          id: number
+          image_url: string | null
+          name: string | null
+          price: number | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          name?: string | null
+          price?: number | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          name?: string | null
+          price?: number | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address: string | null
@@ -44,6 +74,42 @@ export type Database = {
           username?: string | null
         }
         Relationships: []
+      }
+      wishlist: {
+        Row: {
+          created_at: string
+          id: number
+          product_id: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          product_id?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          product_id?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wishlist_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "product"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wishlist_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
