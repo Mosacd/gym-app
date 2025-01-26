@@ -16,6 +16,7 @@ export const useGetWhishlistedProducts = <T>({
       queryFn: () => {
         return getWishlistedProducts(id);
       },
+      staleTime: 60 * 1000, // Cache for 6 min
       ...queryOptions,
     });
     

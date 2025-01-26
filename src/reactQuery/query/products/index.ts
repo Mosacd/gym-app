@@ -13,7 +13,7 @@ import {
     return useQuery<Product[], Error, T>({
       queryKey: ["products"],
       queryFn: getProductList,
-      staleTime: 60 * 60 * 1000, // Cache for 1 hour
+      staleTime: 60 * 1000, // Cache for 6 mins
       ...queryOptions,
     });
     
@@ -28,8 +28,9 @@ import {
     return useQuery<Product[], Error, T>({
       queryKey: ["productsWithCategory", productType],
       queryFn: () => {
-        return getProductListWithCategory(productType); // Call the actual function
+        return getProductListWithCategory(productType);
       },
+      staleTime: 60 * 1000, // Cache for 6 min
       ...queryOptions,
     });
   };
@@ -43,7 +44,8 @@ import {
   ): UseQueryResult<T, Error> => {
     return useQuery<Product[], Error, T>({
       queryKey: ["bestSellingProducts"],
-      queryFn: getProductListBestSelling, // Call the actual function 
+      queryFn: getProductListBestSelling,
+      staleTime: 60 * 1000, // Cache for 6 min
       ...queryOptions,
     });
   };
@@ -56,7 +58,8 @@ import {
   ): UseQueryResult<T, Error> => {
     return useQuery<Product[], Error, T>({
       queryKey: ["WorstSellingProducts"],
-      queryFn: getProductListWorstSelling, // Call the actual function
+      queryFn: getProductListWorstSelling,
+      staleTime: 60 * 1000, // Cache for 6 min
       ...queryOptions,
     });
   };

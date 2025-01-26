@@ -1,15 +1,18 @@
 // import image from "@/assets/10mm-lever-belt-black-black-main.webp"
 import { Button } from "@/componentsShadcn/ui/button";
+import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 import CaruselForPages from "@/pageComponents/forHome/carouselMain/carusel";
 import FeaturesSection from "@/pageComponents/forHome/featuresSection/featuresSection";
 import VirtualizedAnswerList from "@/pageComponents/forSingleProductPage/comments/comments";
 import { Loader } from "@/pageComponents/loader/loader";
+import { useAddToWishlist } from "@/reactQuery/mutations/whishlist";
 import { useGetSingleProduct } from "@/reactQuery/query/products";
 import { mapSingleProductTableData } from "@/supabase/products";
 import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const {user} = useAuthContext();
 
   const { data: product, isLoading } = useGetSingleProduct(
     {
@@ -20,6 +23,18 @@ const ProductDetail = () => {
     },
     id,
   );
+
+
+ const { mutate: whishlist } =  useAddToWishlist();
+
+
+const handleAddToWishlist = () => {
+  if (!user) {
+    throw new Error("User is not authenticated");
+  }
+
+  return whishlist({ productId: product?.id.toString(), userId: user.id });
+}
 
   if (isLoading) {
 
@@ -55,7 +70,7 @@ const ProductDetail = () => {
             {/* <p className="text-sm text-gray-500">The model is wearing a size Medium.</p> */}
             <div className="flex flex-col gap-2 sm:flex-row justify-center mt-8 ">
             <Button className="max-w-md w-full">Add To Cart</Button>
-            <Button variant={"secondary"} className="max-w-md w-full">Add To Favourites</Button>
+            <Button onClick={handleAddToWishlist} variant={"secondary"} className="max-w-md w-full">Add To Favourites</Button>
             </div>
           </div>
         </div>

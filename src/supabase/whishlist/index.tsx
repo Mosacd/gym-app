@@ -35,19 +35,17 @@ export const getWishlistedProducts = async (userId: string | undefined):Promise<
 };
 
 
-export const addToWishlist = async (userId: string, productId: number) => {
+export const addToWishlist = async ({ userId, productId }: { userId: string | undefined; productId: string | undefined }): Promise<void> => {
   if (!userId || !productId) {
     throw new Error("User ID and Product ID are required to add to the wishlist.");
   }
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("wishlist")
-    .insert([{ user_id: userId, product_id: productId }]);
+    .insert([{ user_id: userId, product_id: Number(productId) }]);
 
   if (error) {
     console.error("Error adding item to wishlist:", error.message);
     throw new Error(error.message);
   }
-
-  return data;
 };
