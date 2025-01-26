@@ -1,33 +1,22 @@
-import productImg from "@/assets/Hoodie.webp"
 import { Card, CardContent } from "@/componentsShadcn/ui/card"
+import { useAuthContext } from "@/context/auth/hooks/useAuthContext"
+import { useGetWhishlistedProducts } from "@/reactQuery/query/whishlist"
+import { mapProductTableData } from "@/supabase/products"
 
-const products = [
-    {
-        id:1,
-        image:productImg,
-        name:"FuckassHoodie"
-    },
-    {
-        id:1,
-        image:productImg,
-        name:"FuckassHoodie"
-    },
-    {
-        id:1,
-        image:productImg,
-        name:"FuckassHoodie"
-    }
-]
+
 
 const Whishlist = () =>{
+ const {user} = useAuthContext()
 
+   const {data:whishlistProducts = []} = useGetWhishlistedProducts ({queryOptions:{select:mapProductTableData}}, user?.id)
+  
     return(
 
         <Card className="border-4 dark:border-neutral-800">
      
           <CardContent className="p-8">
           <div className="flex gap-4 flex-wrap justify-center">
-       {products.map((product) =>{
+       {whishlistProducts.map((product) =>{
         return (<div
         key={product.id}
         className="flex-1 max-w-60  cursor-pointer"
@@ -36,7 +25,7 @@ const Whishlist = () =>{
           <div className="w-full p-4 flex items-center justify-center">
             <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-50">
               <img
-                src={product.image}
+                src={product.image_url}
                 alt={product.name}
                 className="w-full h-full object-contain"
               />

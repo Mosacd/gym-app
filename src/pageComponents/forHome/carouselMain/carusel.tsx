@@ -1,12 +1,11 @@
-import { Card, CardContent } from "@/componentsShadcn/ui/card"
+import { Card, CardContent } from "@/componentsShadcn/ui/card";
 import { 
   Carousel, 
   CarouselContent, 
   CarouselItem, 
   CarouselNext, 
   CarouselPrevious 
-} from "@/componentsShadcn/ui/carousel"    
-import beltImage from '@/assets/10mm-lever-belt-black-black-main.webp'
+} from "@/componentsShadcn/ui/carousel";
 import {
   wrapper,
   heading,
@@ -18,50 +17,80 @@ import {
   productName,
   productPrice,
 } from "./carousel.styles";
+import { useGetProductListWithBestSelling, useGetProductListWithCategory, useGetProductListWithWorstSelling } from "@/reactQuery/query/products";
+import { mapProductTableData } from "@/supabase/products";
+import { Link } from "react-router-dom";
 
-const CaruselForMain: React.FC = () => {
-
-    const products = [
-        {image: beltImage, name: "DMM Lower Belt BLACK", price: "$29.99" },
-        {image: beltImage,  name: "Gympreneur MM Knee sl.", price: "$34.99" },
-        {image: beltImage,  name: "Gympreneur Strength Kit", price: "$89.99" },
-        {image: beltImage,  name: "Wrist Wraps - 18\"", price: "$19.99" },
-        {image: beltImage,  name: "Gympreneur Skull Tape", price: "$12.99" }
-      ];
-    
-      return (
-        <div className={wrapper()}>
-          <h1 className={heading()}>Best-Selling Lifting Gear</h1>
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className={carousel()}
-          >
-            <CarouselContent>
-              {products.map((product, index) => (
-                <CarouselItem key={index} className={carouselItem()}>
-                  <div className="p-1">
-                    <Card className={card()}>
-                      <CardContent className={cardContent()}>
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className={`${image()} border border-gray-300`}
-                        />
-                        <p className={productName()}>{product.name}</p>
-                        <p className={productPrice()}>{product.price}</p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </div>
-      );
+interface CarouselProps {
+  productType?: string;
+  headerText: string;
+  carouselType: "bestSelling" | "category" | "worstSelling";
 }
 
-export default CaruselForMain
+const CaruselForPages: React.FC<CarouselProps> = ({ productType, headerText, carouselType }) => {
+  const { data: productWithCategory = [] } = useGetProductListWithCategory(
+    { queryOptions: { select: mapProductTableData } },
+    productType
+  );
+
+  const { data: productBestSelling = [] } = useGetProductListWithBestSelling(
+    { queryOptions: { select: mapProductTableData } }
+  );
+
+  const { data: productWorstSelling = [] } = useGetProductListWithWorstSelling(
+    { queryOptions: { select: mapProductTableData } }
+  );
+
+  // Select the products based on carouselType
+  const products = (() => {
+    switch (carouselType) {
+      case "bestSelling":
+        return productBestSelling;
+      case "worstSelling":
+        return productWorstSelling;
+      case "category":
+      default:
+        return productWithCategory;
+    }
+  })();
+
+  console.log(products);
+
+  return (
+    <div className={wrapper()}>
+      <h1 className={heading()}>{headerText}</h1>
+      <Carousel
+        opts={{
+          align: "start",
+        }}
+        className={carousel()}
+      >
+        <CarouselContent>
+          {products.map((product, index) => (
+            <CarouselItem key={index} className={carouselItem()}>
+              <Link to={`/dashboard/productDetail/${product.id}`}>
+                <div className="p-1">
+                  <Card className={card()}>
+                    <CardContent className={cardContent()}>
+                      <img
+                        src={product.image_url}
+                        alt={product.name}
+                        className={`${image()} border border-gray-300`}
+                      />
+                      <p className={productName()}>{product.name}</p>
+                      <p className={productPrice()}>{product.price}$</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </Link>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </div>
+  );
+};
+
+export default CaruselForPages;

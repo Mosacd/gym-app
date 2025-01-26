@@ -4,15 +4,10 @@ import ProductsHeroBanner from "@/pageComponents/forProducts/heroBanner/hero";
 import SearchBar from "@/pageComponents/forProducts/search/search";
 import SortMenu from "@/pageComponents/forProducts/SortMenu/SortMenu";
 import ProductsGrid from "@/pageComponents/forProducts/products/products";
-import beltImage from '@/assets/Hoodie.webp'
+
 import FiltersMobile from "@/pageComponents/forProducts/filter/filretMobile";
 
-const sampleProducts = Array.from({ length: 1000 }, (_, i) => ({
-  id: `${i + 1}`,
-  name: `FuckAss Hoodie ${i + 1}`,
-  price: (Math.random() * 100).toFixed(2),
-  image: beltImage,
-}));
+
 
 const Products = () => {
   return (
@@ -30,7 +25,7 @@ const Products = () => {
               <SortMenu />
               <FiltersMobile />
             </div>
-            <ProductsGrid products={sampleProducts} />
+            <ProductsGrid />
           </main>
         </div>
       </div>
