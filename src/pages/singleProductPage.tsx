@@ -128,7 +128,7 @@ const ProductDetail = () => {
         headerText="Your May Also Like"
         carouselType="category"
       />
-      <div className="flex flex-col items-center px-10 md:px-20 gap-4">
+      <div className="flex mb-20 flex-col items-center px-10 md:px-20 gap-4">
         <h1 className="text-2xl sm:text-3xl block h-12 dark:text-white font-semibold border-b-black dark:border-b-white border-b-2 w-full max-w-screen-lg text-center">
           Reviews
         </h1>
