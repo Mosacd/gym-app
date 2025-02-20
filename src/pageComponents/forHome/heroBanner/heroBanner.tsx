@@ -30,11 +30,12 @@ const HeroBanner: React.FC = () => {
 
       {/* Content */}
       <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className={contentClass()}>
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className={contentClass()}
+      >
         <h1 className={headingClass()}>Empower Your Fitness Journey</h1>
         <p className={paragraphClass()}>
           Premium gear for athletes who demand the best.

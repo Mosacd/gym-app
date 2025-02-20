@@ -66,11 +66,13 @@ const CaruselForPages: React.FC<CarouselProps> = ({
   console.log(products);
 
   return (
-    <motion.div className={wrapper()}
-    initial={{ opacity: 0, y: 20 }}
+    <motion.div
+      className={wrapper()}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }} 
-      viewport={{ once: true }}>
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true }}
+    >
       <h1 className={heading()}>{headerText}</h1>
       <Carousel
         opts={{

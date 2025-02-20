@@ -19,7 +19,7 @@ const LeverBeltBanner = () => {
       className={banner()}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }} 
+      transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true }}
     >
       <div
@@ -28,11 +28,12 @@ const LeverBeltBanner = () => {
       >
         <div className={overlay()}></div>
         <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        viewport={{ once: true }}
-        className={content()}>
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className={content()}
+        >
           <h3 className={subHeading()}>BLK/BLK</h3>
           <h1 className={heading()}>LEVER BELT</h1>
           <p className={saleText()}>40% SALE</p>

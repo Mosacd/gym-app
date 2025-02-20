@@ -1,8 +1,13 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/componentsShadcn/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/componentsShadcn/ui/card";
 import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 import { useGetUserReviews } from "@/reactQuery/query/reviews";
 import { Link } from "react-router-dom";
-import noReviewsSVG from "@/assets/undraw_reviews_ukai.svg"
+import noReviewsSVG from "@/assets/undraw_reviews_ukai.svg";
 
 const PersonalReviews = () => {
   const { user } = useAuthContext();
@@ -12,10 +17,10 @@ const PersonalReviews = () => {
   return (
     <Card className="border-4 dark:border-neutral-800">
       <CardHeader>
-          <CardTitle className="text-center">
+        <CardTitle className="text-center">
           {userReviews.length} Reviews
         </CardTitle>
-        </CardHeader>
+      </CardHeader>
       <CardContent className="space-y-2">
         {/* <li
       key={comment.id}
@@ -34,7 +39,13 @@ const PersonalReviews = () => {
     </li> */}
         <div className="flex gap-2 flex-wrap justify-center">
           {userReviews.length === 0 ? (
-            <img src={noReviewsSVG} alt="No reviews" className="max-w-72 m-auto" />) :  (userReviews.map((comment) => {
+            <img
+              src={noReviewsSVG}
+              alt="No reviews"
+              className="max-w-72 m-auto"
+            />
+          ) : (
+            userReviews.map((comment) => {
               return (
                 <Link to={`/dashboard/productDetail/${comment.product_id}`}>
                   <div className="border-2 dark:border-neutral-800 p-5 rounded-md">
@@ -44,8 +55,8 @@ const PersonalReviews = () => {
                   </div>
                 </Link>
               );
-            }))}
-         
+            })
+          )}
         </div>
       </CardContent>
     </Card>

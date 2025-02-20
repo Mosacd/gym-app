@@ -115,10 +115,10 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
                       to={`/dashboard/productDetail/${product.id}`}
                     >
                       <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, ease: "easeOut" }} 
-                      viewport={{ once: true }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                        viewport={{ once: true }}
                         key={product.id}
                         className="flex-1 mb-4 max-w-80 cursor-pointer "
                       >
