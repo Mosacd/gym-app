@@ -33,7 +33,7 @@ const Menu = () => {
             {/* Links that automatically close the Sheet */}
             <SheetClose asChild>
               <Link to="/dashboard/products">
-                <Button className="w-full">Shop Now</Button>
+                <Button className="w-full text-lg p-5">Shop Now</Button>
               </Link>
             </SheetClose>
             <div
@@ -55,7 +55,7 @@ const Menu = () => {
               ) : (
                 <SheetClose asChild>
                   <Link className="w-full" to="/auth/signin">
-                    <Button className="w-full" variant={"secondary"}>
+                    <Button className="w-full text-lg p-5" variant={"secondary"}>
                       <svg
                         className="fill-purple-900"
                         width="19"
@@ -76,7 +76,7 @@ const Menu = () => {
                   </Link>
                 </SheetClose>
               )}
-              <div className="flex justify-center gap-2">
+              <div className="flex justify-center gap-2 *:text-lg *:p-5">
                 <LanguageChanger />
                 <ThemeToggle />
               </div>
