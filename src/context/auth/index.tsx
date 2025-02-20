@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useCallback, useState } from "react";
-// import { supabase } from "../../supabase/supabase"; // Adjust the import based on your project structure
+// import { supabase } from "../../supabase/supabase";
 import { mapProfileTableData } from "@/supabase/account";
 import { useGetProfileInfo } from "@/reactQuery/query/profile";
 

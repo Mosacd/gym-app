@@ -3,6 +3,7 @@ import { Button } from "@/componentsShadcn/ui/button";
 import { Icons } from "../header/icon.data";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -11,6 +12,7 @@ import {
 import { X } from "lucide-react";
 import { useCartContext } from "@/context/cart/hooks/useCartContext";
 import { Link } from "react-router-dom";
+import emptyCartSVG from "@/assets/undraw_empty-cart_574u.svg";
 
 const ShoppingCart = () => {
   const { cart, removeFromCart } = useCartContext();
@@ -24,7 +26,13 @@ const ShoppingCart = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <Button>{Icons.cart}</Button>
+        <Button className="relative"><div>
+          {Icons.cart}
+          <span className="absolute -top-1 -right-1 border-2 dark:border-white transition-colors duration-200 dark:text-white dark:bg-black border-black bg-white text-black text-xs w-5 h-5 flex justify-center items-center rounded-full">
+            {cart.reduce((total, product) => total + product.quantity, 0)}
+          </span>
+          </div>
+          </Button>
       </SheetTrigger>
       <SheetContent
         side="right"
@@ -36,7 +44,7 @@ const ShoppingCart = () => {
 
         <div className="w-full max-w-2xl m-auto py-5 items-center sm:p-5 flex flex-col gap-2">
           <div className="w-full border-y-2 py-7 flex gap-2 max-h-80 overflow-auto flex-col items-center border-black dark:border-white">
-            {cart.map((product) => {
+            {cart.length > 0 ? (cart.map((product) => {
               return (
                 <div
                   key={product.id}
@@ -70,18 +78,23 @@ const ShoppingCart = () => {
                   </div>
                 </div>
               );
-            })}
+            }))
+            : ( <img src={emptyCartSVG} alt="" className="max-w-60 m-auto" />)
+          }
+            
           </div>
           <div className="w-full gap-4 flex flex-col sm:flex-row items-center justify-between mt-5">
             <h1 className="text-lg font-semibold">
               Total Price: ${totalPrice.toFixed(2)}
             </h1>
+            <SheetClose asChild>
             <Link
               className="w-full max-w-sm sm:max-w-48"
               to="/dashboard/cartPage"
             >
               <Button className="w-full max-w-sm sm:max-w-48">Checkout</Button>
             </Link>
+            </SheetClose>
           </div>
         </div>
       </SheetContent>

@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect, useMemo } from "react";
 
 type CartItem = {
-  id: number; // Unique identifier for the item
-  name: string; // Item name
-  price: number | string; // Item price
+  id: number;
+  name: string;
+  price: number | string;
   quantity: number; // Quantity of the item
   category: string;
   created_at: string;

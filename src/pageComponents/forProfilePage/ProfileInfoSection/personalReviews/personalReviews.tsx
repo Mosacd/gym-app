@@ -1,7 +1,8 @@
-import { Card, CardContent } from "@/componentsShadcn/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/componentsShadcn/ui/card";
 import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 import { useGetUserReviews } from "@/reactQuery/query/reviews";
 import { Link } from "react-router-dom";
+import noReviewsSVG from "@/assets/undraw_reviews_ukai.svg"
 
 const PersonalReviews = () => {
   const { user } = useAuthContext();
@@ -10,7 +11,12 @@ const PersonalReviews = () => {
 
   return (
     <Card className="border-4 dark:border-neutral-800">
-      <CardContent className="p-8">
+      <CardHeader>
+          <CardTitle className="text-center">
+          {userReviews.length} Reviews
+        </CardTitle>
+        </CardHeader>
+      <CardContent className="space-y-2">
         {/* <li
       key={comment.id}
       className=" p-4 border-b border-b-black dark:border-b-white bg-white dark:bg-black dark:text-white"
@@ -27,17 +33,19 @@ const PersonalReviews = () => {
       </div>
     </li> */}
         <div className="flex gap-2 flex-wrap justify-center">
-          {userReviews.map((comment) => {
-            return (
-              <Link to={`/dashboard/productDetail/${comment.product_id}`}>
-                <div className="border-2 dark:border-neutral-800 p-5 rounded-md">
-                  <h1 className="text-lg">{comment.product_id} Review</h1>
-                  <p>likes:34</p>
-                  <h1>{comment.created_at}</h1>
-                </div>
-              </Link>
-            );
-          })}
+          {userReviews.length === 0 ? (
+            <img src={noReviewsSVG} alt="No reviews" className="max-w-72 m-auto" />) :  (userReviews.map((comment) => {
+              return (
+                <Link to={`/dashboard/productDetail/${comment.product_id}`}>
+                  <div className="border-2 dark:border-neutral-800 p-5 rounded-md">
+                    <h1 className="text-lg">{comment.product_id} Review</h1>
+                    <p>likes:34</p>
+                    <h1>{comment.created_at}</h1>
+                  </div>
+                </Link>
+              );
+            }))}
+         
         </div>
       </CardContent>
     </Card>

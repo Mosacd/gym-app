@@ -12,6 +12,7 @@ import {
   ghostButtonClass,
 } from "./heroBanner.styles";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const HeroBanner: React.FC = () => {
   return (
@@ -28,7 +29,12 @@ const HeroBanner: React.FC = () => {
       <div className={overlayClass()}></div>
 
       {/* Content */}
-      <div className={contentClass()}>
+      <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className={contentClass()}>
         <h1 className={headingClass()}>Empower Your Fitness Journey</h1>
         <p className={paragraphClass()}>
           Premium gear for athletes who demand the best.
@@ -43,7 +49,7 @@ const HeroBanner: React.FC = () => {
             Learn More
           </Button>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

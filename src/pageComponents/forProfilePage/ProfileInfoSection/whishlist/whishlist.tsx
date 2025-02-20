@@ -1,7 +1,8 @@
-import { Card, CardContent } from "@/componentsShadcn/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/componentsShadcn/ui/card";
 import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 import { useGetWhishlistedProducts } from "@/reactQuery/query/whishlist";
 import { mapProductTableData } from "@/supabase/products";
+import emptyWhishlistsSvg from "@/assets/undraw_wishlist_71gv.svg"
 
 const Whishlist = () => {
   const { user } = useAuthContext();
@@ -13,9 +14,17 @@ const Whishlist = () => {
 
   return (
     <Card className="border-4 dark:border-neutral-800">
-      <CardContent className="p-8">
+            <CardHeader>
+          <CardTitle className="text-center">
+          {whishlistProducts.length} Whishlists
+        </CardTitle>
+        </CardHeader>
+      <CardContent className="space-y-2">
         <div className="flex gap-4 flex-wrap justify-center">
-          {whishlistProducts.map((product) => {
+          {whishlistProducts.length === 0 ? (
+            <img src={emptyWhishlistsSvg} alt="No whishlists" className="max-w-72 m-auto" />
+          ) :
+          (whishlistProducts.map((product) => {
             return (
               <div key={product.id} className="flex-1 max-w-60  cursor-pointer">
                 <div className="border-2 bg-white rounded-lg  hover:shadow-md hover:bg-gray-100 dark:hover:bg-neutral-900 transiton-shadow duration-200  dark:border-neutral-800 dark:bg-neutral-950 dark:text-white">
@@ -36,7 +45,8 @@ const Whishlist = () => {
                 </div>
               </div>
             );
-          })}
+          }))
+        }
         </div>
       </CardContent>
     </Card>

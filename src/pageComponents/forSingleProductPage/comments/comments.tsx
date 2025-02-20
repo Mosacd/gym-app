@@ -6,6 +6,7 @@ import { useGetProductReviews } from "@/reactQuery/query/reviews";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import emptyReviewsSVG from "@/assets/undraw_add-notes_9xls.svg";
 
 const VirtualizedReviewList: React.FC = () => {
   const { user } = useAuthContext();
@@ -48,9 +49,9 @@ const VirtualizedReviewList: React.FC = () => {
     <div className="max-w-screen-lg w-full">
       <div
         ref={containerRef}
-        className="h-[475px] block-shadow dark:border-neutral-800 border-2 max-w-screen-lg w-full overflow-auto rounded-lg scrollbar-hide"
+        className={` ${reviews.length>3 ? 'h-[400px]' : 'h-[250px]' } block-shadow dark:border-neutral-800 border-2 max-w-screen-lg w-full overflow-auto rounded-lg scrollbar-hide`}
       >
-        <ul
+        {reviews.length > 0 ? (      <ul
           style={{ height: virtualizer.getTotalSize(), position: "relative" }}
         >
           {virtualizer.getVirtualItems().map((row) => (
@@ -112,7 +113,11 @@ const VirtualizedReviewList: React.FC = () => {
               </div>
             </li>
           ))}
-        </ul>
+        </ul>) : (<div className="flex flex-col justify-center items-center gap-3">
+          <img src={emptyReviewsSVG} alt="" className="max-w-48 p-2"/> 
+          <p className="text-2xl font-semibold dark:text-white">Add Your Review</p>
+        </div> )}
+  
       </div>
 
       <div className="mt-8 text-black dark:text-white h-40">

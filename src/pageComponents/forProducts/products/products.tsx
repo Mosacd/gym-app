@@ -5,6 +5,7 @@ import { useGetProductList } from "@/reactQuery/query/products";
 import { mapProductTableData } from "@/supabase/products";
 import { Link } from "react-router-dom";
 import { useCartContext } from "@/context/cart/hooks/useCartContext";
+import { motion } from "framer-motion";
 
 const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
   searchQuery,
@@ -113,13 +114,17 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
                       className="flex-1 mb-4 max-w-80 cursor-pointer"
                       to={`/dashboard/productDetail/${product.id}`}
                     >
-                      <div
+                      <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }} 
+                      viewport={{ once: true }}
                         key={product.id}
-                        className="flex-1 mb-4 max-w-80 cursor-pointer"
+                        className="flex-1 mb-4 max-w-80 cursor-pointer "
                       >
-                        <div className="h-full border-2 min-h-[300px] bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-100 dark:hover:bg-neutral-900 transiton-shadow duration-200 flex flex-col dark:border-neutral-800 dark:bg-neutral-950 dark:text-white">
+                        <div className="group h-full border-2 min-h-[300px] hover:-translate-y-2 bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-100 hover:border-black dark:hover:border-white dark:hover:bg-neutral-900 transiton-shadow duration-200 flex flex-col dark:border-neutral-800 dark:bg-neutral-950 dark:text-white">
                           <div className="w-full h-52 p-4 flex items-center justify-center">
-                            <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-50">
+                            <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-50 group-hover:scale-110 transition-transform duration-200">
                               <img
                                 src={product.image_url}
                                 alt={product.name}
@@ -148,7 +153,7 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     </Link>
                   );
                 })}

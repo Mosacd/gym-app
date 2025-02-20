@@ -137,6 +137,16 @@ const App: React.FC = () => {
             }
           />
         </Route>
+        <Route
+          path="*"
+          element={
+            <div className="w-full h-screen flex justify-center items-center">
+              <h1 className="text-7xl max-w-fit font-semibold">
+                Page Not Found 404
+              </h1>
+            </div>
+          }
+        />
       </Routes>
     </ThemeProvider>
   );

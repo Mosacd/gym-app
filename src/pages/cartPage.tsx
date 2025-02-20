@@ -9,7 +9,7 @@ import {
 } from "@/componentsShadcn/ui/card";
 import { usePlaceOrder } from "@/reactQuery/mutations/order";
 import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
-
+import emptyCartSVG from '@/assets/undraw_empty-cart_574u.svg';
 const CartPage = () => {
   const { cart, removeFromCart, clearCart, changeQuantity } = useCartContext();
   const { user } = useAuthContext();
@@ -226,7 +226,12 @@ const CartPage = () => {
                 </Card>
               ))
             ) : (
-              <div className="text-center py-4">Your cart is empty.</div>
+
+              <div className="text-center py-4">
+                <h1 className="font-semibold text-lg pb-4">Your cart is empty</h1>
+              <img src={emptyCartSVG} alt="" className="max-w-72 m-auto border-2 p-1 rounded-lg" />
+              </div>
+              
             )}
           </div>
 

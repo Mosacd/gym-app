@@ -31,7 +31,7 @@ const AuthLayout: React.FC = () => {
             </svg>
           </div>
         </Link>
-        <div className="w-full">
+        <div className="w-full min-h-60">
           <Outlet />
         </div>
       </div>

@@ -24,6 +24,7 @@ import {
 } from "@/reactQuery/query/products";
 import { mapProductTableData } from "@/supabase/products";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 interface CarouselProps {
   productType?: string;
@@ -65,7 +66,11 @@ const CaruselForPages: React.FC<CarouselProps> = ({
   console.log(products);
 
   return (
-    <div className={wrapper()}>
+    <motion.div className={wrapper()}
+    initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }} 
+      viewport={{ once: true }}>
       <h1 className={heading()}>{headerText}</h1>
       <Carousel
         opts={{
@@ -97,7 +102,7 @@ const CaruselForPages: React.FC<CarouselProps> = ({
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-    </div>
+    </motion.div>
   );
 };
 

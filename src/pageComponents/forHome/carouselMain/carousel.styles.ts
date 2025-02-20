@@ -8,16 +8,16 @@ export const heading = cva("text-xl md:text-2xl font-bold dark:text-white");
 
 export const carousel = cva("w-[70%] sm:w-[85%] lg:w-[80%] max-w-5xl");
 
-export const carouselItem = cva("md:basis-1/2 lg:basis-1/3");
+export const carouselItem = cva("md:basis-1/2 lg:basis-1/3 py-4");
 
 export const card = cva(
-  "min-h-60 cursor-pointer hover:bg-gray-100 dark:hover:bg-neutral-900",
+  "group min-h-60 cursor-pointer hover:bg-gray-100 hover:border-black dark:hover:border-white hover:-translate-y-5  dark:hover:bg-neutral-900",
 );
 
-export const cardContent = cva("flex flex-col items-center p-4");
+export const cardContent = cva("flex flex-col gap-5 items-center p-4");
 
 export const image = cva(
-  "h-56 object-contain mb-2 border-spacing-1 border-black border-0 rounded-full",
+  "h-56 object-contain mb-2 border-spacing-1 border-black border-0 rounded-full group-hover:scale-105 transition-transform duration-200",
 );
 
 export const productName = cva("text-sm font-medium text-center");
