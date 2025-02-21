@@ -61,7 +61,7 @@ const ProductDetail: React.FC = () => {
     if (!user) {
       throw new Error("User is not authenticated");
     }
-    toast("Item Added To Favourites💫")
+    toast("Item Added To Favourites💫");
     return whishlist({ productId: product?.id.toString(), userId: user.id });
   };
 
@@ -140,9 +140,9 @@ const ProductDetail: React.FC = () => {
             {/* <p className="text-sm text-gray-500">The model is wearing a size Medium.</p> */}
             <div className="flex flex-col gap-2 sm:flex-row justify-center mt-8 ">
               <Button
-                onClick={() =>{
-                  toast("Item Added To Cart✅")
-                  return product && handleAddToCart(product)
+                onClick={() => {
+                  toast("Item Added To Cart✅");
+                  return product && handleAddToCart(product);
                 }}
                 className="max-w-md w-full"
               >

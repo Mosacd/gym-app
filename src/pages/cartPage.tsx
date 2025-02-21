@@ -63,7 +63,7 @@ const CartPage = () => {
                 <th>Product</th>
                 <th>Price</th>
                 <th className="min-w-36">Quantity</th>
-                <th className="min-w-24" >Total</th>
+                <th className="min-w-24">Total</th>
                 <th>Actions</th>
               </tr>
             </thead>

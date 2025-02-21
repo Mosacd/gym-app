@@ -146,7 +146,7 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
                                 onClick={(e) => {
                                   e.stopPropagation(); // Prevent event from bubbling up to the Link
                                   e.preventDefault();
-                                  toast("Item Added To Cart✅")
+                                  toast("Item Added To Cart✅");
                                   handleAddToCart(product);
                                 }}
                               >
