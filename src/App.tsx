@@ -9,6 +9,7 @@ import { Loader } from "./pageComponents/loader/loader";
 import { useAuthContext } from "./context/auth/hooks/useAuthContext";
 import { supabase } from "./supabase/supabase";
 import ScrollToTop from "./convenienceTools/scrollTop";
+import { Toaster } from "./componentsShadcn/ui/sonner";
 
 const LogIn = lazy(() => import("./pageComponents/logIn/logIn"));
 const Register = lazy(() => import("./pageComponents/register/register"));
@@ -58,6 +59,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <ScrollToTop />
+      <Toaster richColors position="bottom-right" />
       <Routes>
         <Route path="/" element={<Navigate to="dashboard/main" replace />} />
 

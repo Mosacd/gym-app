@@ -62,8 +62,8 @@ const CartPage = () => {
               <tr className="*:px-2 *:border-b-2 *:dark:border-neutral-800 *:text-xs sm:*:text-sm md:*:px-4 *:py-2">
                 <th>Product</th>
                 <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
+                <th className="min-w-36">Quantity</th>
+                <th className="min-w-24" >Total</th>
                 <th>Actions</th>
               </tr>
             </thead>

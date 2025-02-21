@@ -6,6 +6,7 @@ import { mapProductTableData } from "@/supabase/products";
 import { Link } from "react-router-dom";
 import { useCartContext } from "@/context/cart/hooks/useCartContext";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
   searchQuery,
@@ -145,6 +146,7 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
                                 onClick={(e) => {
                                   e.stopPropagation(); // Prevent event from bubbling up to the Link
                                   e.preventDefault();
+                                  toast("Item Added To Cart✅")
                                   handleAddToCart(product);
                                 }}
                               >

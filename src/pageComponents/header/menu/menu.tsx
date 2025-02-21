@@ -39,14 +39,14 @@ const Menu = () => {
             <div
               className={
                 user
-                  ? "flex items-center gap-2 justify-center"
-                  : "flex flex-col items-center gap-2"
+                  ? "flex items-center gap-2 justify-center flex-wrap"
+                  : "flex flex-col items-center gap-2 flex-wrap"
               }
             >
               {user ? (
                 <SheetClose asChild>
                   <Link className="flex" to="/dashboard/profilePage">
-                    <Avatar className="h-10 w-10 border-4 border-purple-900 hover:scale-110 hover:border-none transition-all">
+                    <Avatar className="h-16 w-16 border-4 border-purple-900 hover:scale-110 hover:border-none transition-all">
                       <AvatarImage src={profileData?.avatar_url} />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
