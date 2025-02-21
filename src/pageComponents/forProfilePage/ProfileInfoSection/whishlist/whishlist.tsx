@@ -43,7 +43,7 @@ const Whishlist = () => {
                     <div className="w-full p-4 flex items-center justify-center">
                       <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-50">
                         <img
-                          src={product.image_url}
+                          src={product.image_url[0]}
                           alt={product.name}
                           className="w-full h-full object-contain"
                         />
