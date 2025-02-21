@@ -4,7 +4,7 @@ type CartItem = {
   id: number;
   name: string;
   price: number | string;
-  quantity: number; // Quantity of the item
+  quantity: number;
   category: string;
   created_at: string;
   description: string;

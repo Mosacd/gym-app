@@ -36,7 +36,13 @@ const CartPage = () => {
     // Map cart items to the format expected by the mutation
     const orderItems = cart.map((item) => ({
       productId: item.id,
+      name:item.name,
+      price:item.price,
       quantity: item.quantity,
+      category:item.category,
+      created_at:item.created_at,
+      description:item.description,
+      image_url:item.image_url
     }));
 
     placeOrder({
@@ -179,7 +185,10 @@ const CartPage = () => {
                   <CardContent>
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2">
-                        <Button className="h-8 w-8 bg-gray-200 text-black hover:bg-gray-300">
+                        <Button className="h-8 w-8 bg-gray-200 text-black hover:bg-gray-300"
+                        onClick={() =>
+                          changeQuantity(product.id.toString(), "decrement")
+                        }>
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -195,7 +204,10 @@ const CartPage = () => {
                           </svg>
                         </Button>
                         <div>{product.quantity}</div>
-                        <Button className="h-8 w-8 text-sm bg-gray-200 text-black hover:bg-gray-300">
+                        <Button className="h-8 w-8 text-sm bg-gray-200 text-black hover:bg-gray-300"
+                        onClick={() =>
+                          changeQuantity(product.id.toString(), "increment")
+                        }>
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"

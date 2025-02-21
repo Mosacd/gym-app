@@ -107,7 +107,7 @@ const App: React.FC = () => {
             }
           />
           <Route
-            path="idOrder"
+            path="orders/:OrderId"
             element={
               <Suspense fallback={<Loader />}>
                 <IdOrder />

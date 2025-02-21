@@ -1,4 +1,4 @@
-import { getUserOrders, Order } from "@/supabase/order";
+import { getUserOrders, getUserSingleOrder, Order } from "@/supabase/order";
 import {
   useQuery,
   UseQueryOptions,
@@ -17,6 +17,24 @@ export const useGetUserOrders = <T>(
     queryKey: ["Orders", id],
     queryFn: () => {
       return getUserOrders(id);
+    },
+    staleTime: 60 * 1000, // Cache for 6 min
+    ...queryOptions,
+  });
+};
+
+export const useGetUserSingleOrder = <T>(
+  {
+    queryOptions,
+  }: {
+    queryOptions?: Omit<UseQueryOptions<Order, Error, T>, "queryKey">;
+  } = {},
+  id: string | undefined,
+): UseQueryResult<T, Error> => {
+  return useQuery<Order, Error, T>({
+    queryKey: ["SingleOrder", id],
+    queryFn: () => {
+      return getUserSingleOrder(id);
     },
     staleTime: 60 * 1000, // Cache for 6 min
     ...queryOptions,

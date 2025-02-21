@@ -12,7 +12,22 @@ import emptyOrdersSvg from "@/assets/undraw_empty_4zx0.svg";
 
 const Orders = () => {
   const { user } = useAuthContext();
-  const { data: userOrders = [] } = useGetUserOrders(
+  const { data: userOrders = [{status: "idk",
+    created_at: "idk",
+    total_price: 0,
+    updated_at: "idk",
+    user_id: "0",
+    id: 0,
+    item: [{
+        productId: 0,
+        name: "",
+        price: 0,
+        quantity: 0,
+        category:"",
+        created_at:"",
+        description:"",
+        image_url:[""],
+    }] }] } = useGetUserOrders(
     { queryOptions: { select: mapOrdersData } },
     user?.id,
   );
@@ -33,16 +48,15 @@ const Orders = () => {
           />
         ) : (
           userOrders.map((order) => (
-            <Link
-                  to={`/orders/${order.id}`}
-                >
-            <div
-              key={order.id}
-              className="group mb-3 flex flex-col gap-5 sm:flex-row border-2 px-5 rounded-md dark:border-neutral-800 p-3 justify-between items-center hover:border-black dark:hover:border-white hover:-translate-y-2 transition-all duration-200"
-            >
-              <div className="flex flex-col gap-5">
-                <h1 className="text-xl font-semibold">Order {order.id}</h1>
-                {/* <Link
+            <Link to={`/dashboard/orders/${order.id}`}>
+              <div
+                key={order.id}
+                className="group mb-3 flex flex-col gap-5 sm:flex-row border-2 px-5 rounded-md dark:border-neutral-800 p-3 justify-between items-center hover:border-black dark:hover:border-white hover:-translate-y-2 transition-all duration-200"
+              >
+                <div className="flex flex-col gap-5">
+                  <h1 className="text-xl font-semibold">Order {order.id}</h1>
+                  
+                  {/* <Link
                   className="hover:border-b justify-center dark:text-gray-400 h-2 border-gray-600 text-gray-700 text-sm flex items-end gap-1"
                   to={`/orders/${order.id}`}
                 >
@@ -59,13 +73,14 @@ const Orders = () => {
                     ></path>
                   </svg>
                 </Link> */}
+                </div>
+                <img className="w-20 h-20 rounded-full" src={order.item[0].image_url[0]} alt="" />
+                <p>Placed on {order.created_at}</p>
+                <div className="flex items-end gap-1">
+                  <h1 className="font-semibold">Total: ${order.total_price}</h1>
+                  {/* <h1 className="text-gray-500">({order.item.length} different items)</h1> */}
+                </div>
               </div>
-              <p>Placed on {order.created_at}</p>
-              <div className="flex items-end gap-1">
-                <h1 className="font-semibold">Total: ${order.total_price}</h1>
-                <h1 className="text-gray-500">({order.item.length} items)</h1>
-              </div>
-            </div>
             </Link>
           ))
         )}

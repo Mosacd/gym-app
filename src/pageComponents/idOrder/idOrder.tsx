@@ -1,53 +1,39 @@
-import { Button } from "@/componentsShadcn/ui/button";
-import productImage from "@/assets/Hoodie.webp";
+import { Card, CardContent, CardHeader, CardTitle } from "@/componentsShadcn/ui/card";
+
+import { useGetUserSingleOrder } from "@/reactQuery/query/order";
+import { mapSingleOrdersData } from "@/supabase/order";
+import { useParams } from "react-router-dom";
 
 const IdOrder = () => {
-  const products = [
-    {
-      id: 1,
-      name: "FuckAss Hoodie",
-      price: 25.0,
-      image: productImage,
-      quantity: 1,
-    },
-    {
-      id: 1,
-      name: "FuckAss Hoodie",
-      price: 25.0,
-      image: productImage,
-      quantity: 1,
-    },
-    {
-      id: 1,
-      name: "FuckAss Hoodie",
-      price: 25.0,
-      image: productImage,
-      quantity: 1,
-    },
-    {
-      id: 1,
-      name: "FuckAss Hoodie",
-      price: 25.0,
-      image: productImage,
-      quantity: 1,
-    },
-    {
-      id: 1,
-      name: "FuckAss Hoodie",
-      price: 25.0,
-      image: productImage,
-      quantity: 1,
-    },
-  ];
+  const {OrderId} = useParams();
+  const { data: userOrder = {status: "idk",
+    created_at: "idk",
+    total_price: 0,
+    updated_at: "idk",
+    user_id: "0",
+    id: 0,
+    item: [{
+        productId: 0,
+        name: "",
+        price: 0,
+        quantity: 0,
+        category:"",
+        created_at:"",
+        description:"",
+        image_url:[""],
+    }] } } = useGetUserSingleOrder(
+    { queryOptions: { select: mapSingleOrdersData } },
+    OrderId
+  );
 
   return (
-    <div className="flex flex-col items-center p-20 min-h-screen">
+    <div className="flex flex-col items-center p-10 sm:p-20 min-h-screen">
       <h1 className="text-3xl mb-5 font-semibold dark:text-white">
-        Order 1001
+        Order {userOrder.id}
       </h1>
-      <table className="w-full max-w-screen-lg border-separate border-4 rounded-md text-center dark:border-neutral-800 dark:text-gray-400">
+      <table className="w-full max-w-screen-md border-separate border-4 rounded-md text-center dark:border-neutral-800 dark:text-gray-400 hidden sm:table">
         <thead className="bg-gray-200 dark:bg-black dark:text-white text-sm font-semibold uppercase text-gray-600">
-          <tr className="*:px-2 *:border-b-2 *:dark:border-neutral-800 *:text-xs sm:*:text-sm md:*:px-4  *:py-2">
+          <tr className="*:px-2 *:border-b-2 *:dark:border-neutral-800 *:text-xs sm:*:text-base md:*:px-4  *:py-2">
             <th>Product</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -55,85 +41,79 @@ const IdOrder = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
+          {userOrder.item
+          .map((product) => (
             <tr
-              key={product.id}
-              className="border-y-2 *:px-2 *:py-2 *:text-xs *:font-semibold sm:*:px-4 sm:*:text-sm "
+            
+              className="border-y-2 *:px-2 *:py-2 *:text-xs *:font-semibold sm:*:px-4 sm:*:text-base "
             >
               <td className="flex items-center gap-4 flex-col sm:flex-row">
                 <img
-                  src={product.image}
+                  src={product.image_url[0]}
                   alt={product.name}
-                  className="w-12 h-12 object-cover rounded-full"
+                  className="w-16 h-16 object-cover rounded-full"
                 />
                 <div>
                   <p className="wrap">{product.name}</p>
                 </div>
               </td>
               <td>
-                <p>{product.price.toFixed(2)}$</p>
+                <p>{Number(product.price).toFixed(2)}$</p>
               </td>
               <td>
                 <div className="flex items-center justify-center gap-2 sm:gap-4">
-                  <Button className="h-8 w-8 bg-gray-200 text-black hover:bg-gray-300">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                      <g
-                        id="SVGRepo_tracerCarrier"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></g>
-                      <g id="SVGRepo_iconCarrier">
-                        {" "}
-                        <path
-                          d="M6 12L18 12"
-                          stroke="#000000"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>{" "}
-                      </g>
-                    </svg>
-                  </Button>
+                  
                   <div className="text-center">{product.quantity}</div>
-                  <Button className="h-8 w-8 text-sm bg-gray-200 text-black hover:bg-gray-300">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                      <g
-                        id="SVGRepo_tracerCarrier"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></g>
-                      <g id="SVGRepo_iconCarrier">
-                        {" "}
-                        <path
-                          d="M6 12H18M12 6V18"
-                          stroke="#000000"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>{" "}
-                      </g>
-                    </svg>{" "}
-                  </Button>
+                  
                 </div>
               </td>
               <td className="">
-                {(product.price * product.quantity).toFixed(2)}$
+                {(Number(product.price) * product.quantity).toFixed(2)}$
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+        {/* Mobile Card View */}
+        <div className="sm:hidden space-y-4 w-full">
+            {
+              userOrder.item.map((product) => (
+                <Card key={product.productId} className="w-full">
+                  <CardHeader className="flex flex-row items-center space-x-4 pb-2">
+                    <img
+                      src={product.image_url[0]}
+                      alt={product.name}
+                      className="w-16 h-16 object-cover rounded-full"
+                    />
+                    <div>
+                      <CardTitle className="text-base">
+                        {product.name}
+                      </CardTitle>
+                      <p className="text-sm text-gray-500">
+                        {Number(product.price).toFixed(2)}$
+                      </p>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-2">
+                       <h1>amount:</h1>
+                        <div>{product.quantity}</div>
+                      
+                      </div>
+                      <div className="font-semibold">
+                        {(Number(product.price) * product.quantity).toFixed(2)}$
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            }
+          </div>
     </div>
+
+    
   );
 };
 
