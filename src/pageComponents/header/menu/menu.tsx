@@ -55,7 +55,10 @@ const Menu = () => {
               ) : (
                 <SheetClose asChild>
                   <Link className="w-full" to="/auth/signin">
-                    <Button className="w-full text-lg p-5" variant={"secondary"}>
+                    <Button
+                      className="w-full text-lg p-5"
+                      variant={"secondary"}
+                    >
                       <svg
                         className="fill-purple-900"
                         width="19"
@@ -76,7 +79,7 @@ const Menu = () => {
                   </Link>
                 </SheetClose>
               )}
-              <div className="flex justify-center gap-2 *:text-lg *:p-5">
+              <div className="flex justify-center gap-2 *:text-lg *:sm:text-base  *:p-5 flex-wrap">
                 <LanguageChanger />
                 <ThemeToggle />
               </div>

@@ -5,7 +5,7 @@ export const heroSectionClass = cva(
 );
 export const overlayClass = cva("absolute inset-0 bg-black bg-opacity-50");
 export const contentClass = cva(
-  "relative z-10 container mx-auto px-6 text-center md:text-left",
+  "relative z-10 w-full max-w-screen-xl mx-auto px-6 text-center md:text-left",
 );
 export const headingClass = cva("text-4xl md:text-6xl font-bold font-mono");
 export const paragraphClass = cva("mt-4 text-lg md:text-xl");
