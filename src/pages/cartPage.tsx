@@ -76,7 +76,7 @@ const CartPage = () => {
                   >
                     <td className="flex items-center gap-4 flex-col sm:flex-row">
                       <img
-                        src={product.image_url}
+                        src={product.image_url[0]}
                         alt={product.name}
                         className="w-12 h-12 object-cover rounded-full"
                       />
@@ -163,7 +163,7 @@ const CartPage = () => {
                 <Card key={product.id} className="w-full">
                   <CardHeader className="flex flex-row items-center space-x-4 pb-2">
                     <img
-                      src={product.image_url}
+                      src={product.image_url[0]}
                       alt={product.name}
                       className="w-16 h-16 object-cover rounded-full"
                     />

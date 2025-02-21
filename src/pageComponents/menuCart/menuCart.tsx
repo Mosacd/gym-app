@@ -61,7 +61,7 @@ const ShoppingCart = () => {
                     <div className="max-w-20">
                       <img
                         className="w-full h-full object-cover rounded-full"
-                        src={product.image_url}
+                        src={product.image_url[0]}
                         alt=""
                       />
                     </div>

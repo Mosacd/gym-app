@@ -9,12 +9,18 @@ import { Loader } from "@/pageComponents/loader/loader";
 import { useAddToWishlist } from "@/reactQuery/mutations/whishlist";
 import { useGetSingleProduct } from "@/reactQuery/query/products";
 import { mapSingleProductTableData } from "@/supabase/products";
+
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-const ProductDetail = () => {
+
+
+const ProductDetail:React.FC = () => {
   const { id } = useParams();
   const { user } = useAuthContext();
   const { addToCart } = useCartContext();
+
+  
 
   const handleAddToCart = (product: {
     id: number;
@@ -23,7 +29,7 @@ const ProductDetail = () => {
     category: string;
     created_at: string;
     description: string;
-    image_url: string;
+    image_url: string[];
   }) => {
     addToCart({ ...product, quantity: 1 });
   };
@@ -40,6 +46,16 @@ const ProductDetail = () => {
 
   const { mutate: whishlist } = useAddToWishlist();
 
+  const images = [product?.image_url[0],product?.image_url[1],product?.image_url[2]]
+ 
+  const [mainImage, setMainImage] = useState<string | undefined>(undefined);
+
+useEffect(() => {
+  if (product?.image_url?.[0]) {
+    setMainImage(product.image_url[0]);
+  }
+}, [product]);
+
   const handleAddToWishlist = () => {
     if (!user) {
       throw new Error("User is not authenticated");
@@ -53,20 +69,36 @@ const ProductDetail = () => {
   }
   return (
     <>
+    
       <div className="flex justify-center p-6">
         <div
           className=" max-w-sm sm:max-w-md flex flex-col items-center  md:flex-row md:max-w-screen-lg gap-10 w-full justify-between
-        border-8 p-5 rounded-lg block-shadow dark:border-neutral-800"
+        p-5"
         >
           {/* Image Section */}
+          <div className="flex flex-col items-center">
           <div className="max-w-xs md:max-w-sm flex justify-center items-center">
             <img
-              src={product?.image_url}
+              src={mainImage || product?.image_url?.[0]}
               alt={product?.name}
               className="w-full h-full object-cover rounded-full"
             />
+                
           </div>
-
+          <div className="flex gap-3 mt-4">
+            {images.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt={`Thumbnail ${index + 1}`}
+                className={`w-16 h-16 object-cover cursor-pointer border-2 rounded-lg transition-all duration-300 hover:border-black dark:hover:border-white hover:scale-110 ${
+                  mainImage === img ? "border-black dark:border-white border-2 scale-110" : "border-gray-300"
+                }`}
+                onClick={() => setMainImage(img)}
+              />
+            ))}
+          </div>
+          </div>
           {/* Text Section */}
           <div className="flex flex-col gap-0 flex-1 max-w-prose">
             <h1 className="text-2xl font-bold dark:text-white">

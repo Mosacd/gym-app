@@ -21,7 +21,7 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
     category: string;
     created_at: string;
     description: string;
-    image_url: string;
+    image_url: string[];
   }) => {
     addToCart({ ...product, quantity: 1 });
   };
@@ -126,7 +126,7 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
                           <div className="w-full h-52 p-4 flex items-center justify-center">
                             <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-50 group-hover:scale-110 transition-transform duration-200">
                               <img
-                                src={product.image_url}
+                                src={product.image_url[0]}
                                 alt={product.name}
                                 className="w-full h-full object-contain"
                               />

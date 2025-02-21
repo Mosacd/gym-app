@@ -16,7 +16,7 @@ export type Product = {
   created_at: string;
   description: string | null;
   id: number;
-  image_url: string | null;
+  image_url: string[] | null;
   name: string | null;
   price: number | null;
 };
@@ -26,7 +26,7 @@ export const mapProductTableData = (datalist: Product[]) => {
     category: data.category || "",
     created_at: data.created_at || "",
     description: data.description || "",
-    image_url: data.image_url || "",
+    image_url: data.image_url || [""],
     name: data.name || "",
     price: data.price || "",
     id: data.id,
@@ -52,7 +52,7 @@ export const mapSingleProductTableData = (data: Product) => ({
   category: data.category || "",
   created_at: data.created_at || "",
   description: data.description || "",
-  image_url: data.image_url || "",
+  image_url: data.image_url || [""],
   name: data.name || "",
   price: data.price || "",
   id: data.id,

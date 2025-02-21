@@ -88,7 +88,7 @@ const CaruselForPages: React.FC<CarouselProps> = ({
                   <Card className={card()}>
                     <CardContent className={cardContent()}>
                       <img
-                        src={product.image_url}
+                        src={product.image_url[0]}
                         alt={product.name}
                         className={`${image()} border border-gray-300`}
                       />

@@ -8,7 +8,7 @@ type CartItem = {
   category: string;
   created_at: string;
   description: string;
-  image_url: string;
+  image_url: string[];
 };
 
 interface CartContextType {
