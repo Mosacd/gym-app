@@ -36,13 +36,13 @@ const CartPage = () => {
     // Map cart items to the format expected by the mutation
     const orderItems = cart.map((item) => ({
       productId: item.id,
-      name:item.name,
-      price:item.price,
+      name: item.name,
+      price: item.price,
       quantity: item.quantity,
-      category:item.category,
-      created_at:item.created_at,
-      description:item.description,
-      image_url:item.image_url
+      category: item.category,
+      created_at: item.created_at,
+      description: item.description,
+      image_url: item.image_url,
     }));
 
     placeOrder({
@@ -63,7 +63,7 @@ const CartPage = () => {
         {/* Left Section: Product Display */}
         <div className="w-full max-w-3xl md:min-w-[600px] flex-auto">
           {/* Desktop Table View */}
-          <table className="w-full border-separate border-4 rounded-md text-center dark:border-neutral-800 dark:text-gray-400 hidden sm:table">
+          <table className="w-full border-separate border-4 rounded-md text-center bg-white dark:bg-neutral-950 dark:border-neutral-800 dark:text-gray-400 hidden sm:table">
             <thead className="bg-gray-200 dark:bg-black dark:text-white text-sm font-semibold uppercase text-gray-600">
               <tr className="*:px-2 *:border-b-2 *:dark:border-neutral-800 *:text-xs sm:*:text-sm md:*:px-4 *:py-2">
                 <th>Product</th>
@@ -145,7 +145,7 @@ const CartPage = () => {
                       <Button
                         onClick={() => removeFromCart(product.id.toString())}
                         variant="destructive"
-                        className="bg-red-500 text-white hover:bg-red-600"
+                        className="bg-red-600 text-white hover:bg-red-700"
                       >
                         Remove
                       </Button>
@@ -185,10 +185,12 @@ const CartPage = () => {
                   <CardContent>
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-2">
-                        <Button className="h-8 w-8 bg-gray-200 text-black hover:bg-gray-300"
-                        onClick={() =>
-                          changeQuantity(product.id.toString(), "decrement")
-                        }>
+                        <Button
+                          className="h-8 w-8 bg-gray-200 text-black hover:bg-gray-300"
+                          onClick={() =>
+                            changeQuantity(product.id.toString(), "decrement")
+                          }
+                        >
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -204,10 +206,12 @@ const CartPage = () => {
                           </svg>
                         </Button>
                         <div>{product.quantity}</div>
-                        <Button className="h-8 w-8 text-sm bg-gray-200 text-black hover:bg-gray-300"
-                        onClick={() =>
-                          changeQuantity(product.id.toString(), "increment")
-                        }>
+                        <Button
+                          className="h-8 w-8 text-sm bg-gray-200 text-black hover:bg-gray-300"
+                          onClick={() =>
+                            changeQuantity(product.id.toString(), "increment")
+                          }
+                        >
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -229,7 +233,7 @@ const CartPage = () => {
                       <Button
                         onClick={() => removeFromCart(product.id.toString())}
                         variant="destructive"
-                        className="bg-red-500 text-white hover:bg-red-600"
+                        className="bg-red-600 text-white hover:bg-red-700"
                       >
                         Remove
                       </Button>
@@ -256,7 +260,7 @@ const CartPage = () => {
             <Input
               type="text"
               placeholder="Coupon code"
-              className="max-w-sm px-4 py-2 border border-gray-300 rounded focus:outline-none"
+              className="max-w-sm px-4 py-2 border border-gray-300 rounded focus:outline-none bg-white dark:bg-neutral-950"
             />
             <div className="w-full md:max-w-xs flex flex-col md:flex-row items-center gap-4">
               <Button className="w-full max-w-sm text-white">Use Coupon</Button>
@@ -272,7 +276,7 @@ const CartPage = () => {
         </div>
 
         {/* Right Section: Cost Summary */}
-        <div className="border-2 flex-auto border-gray-200 rounded-lg p-4 w-full max-w-md dark:text-white dark:border-neutral-800">
+        <div className="border-2 flex-auto border-gray-200 rounded-lg p-4 w-full max-w-md bg-white dark:bg-neutral-950 dark:text-white dark:border-neutral-800">
           <h2 className="text-lg font-semibold border-b pb-2 mb-4">
             Full Cost
           </h2>

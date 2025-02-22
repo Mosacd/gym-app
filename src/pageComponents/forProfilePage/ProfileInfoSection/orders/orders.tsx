@@ -12,25 +12,30 @@ import emptyOrdersSvg from "@/assets/undraw_empty_4zx0.svg";
 
 const Orders = () => {
   const { user } = useAuthContext();
-  const { data: userOrders = [{status: "idk",
-    created_at: "idk",
-    total_price: 0,
-    updated_at: "idk",
-    user_id: "0",
-    id: 0,
-    item: [{
-        productId: 0,
-        name: "",
-        price: 0,
-        quantity: 0,
-        category:"",
-        created_at:"",
-        description:"",
-        image_url:[""],
-    }] }] } = useGetUserOrders(
-    { queryOptions: { select: mapOrdersData } },
-    user?.id,
-  );
+  const {
+    data: userOrders = [
+      {
+        status: "idk",
+        created_at: "idk",
+        total_price: 0,
+        updated_at: "idk",
+        user_id: "0",
+        id: 0,
+        item: [
+          {
+            productId: 0,
+            name: "",
+            price: 0,
+            quantity: 0,
+            category: "",
+            created_at: "",
+            description: "",
+            image_url: [""],
+          },
+        ],
+      },
+    ],
+  } = useGetUserOrders({ queryOptions: { select: mapOrdersData } }, user?.id);
 
   return (
     <Card className="border-4 dark:border-neutral-800">
@@ -55,7 +60,7 @@ const Orders = () => {
               >
                 <div className="flex flex-col gap-5">
                   <h1 className="text-xl font-semibold">Order {order.id}</h1>
-                  
+
                   {/* <Link
                   className="hover:border-b justify-center dark:text-gray-400 h-2 border-gray-600 text-gray-700 text-sm flex items-end gap-1"
                   to={`/orders/${order.id}`}
@@ -74,7 +79,11 @@ const Orders = () => {
                   </svg>
                 </Link> */}
                 </div>
-                <img className="w-20 h-20 rounded-full" src={order.item[0].image_url[0]} alt="" />
+                <img
+                  className="w-20 h-20 rounded-full"
+                  src={order.item[0].image_url[0]}
+                  alt=""
+                />
                 <p>Placed on {order.created_at}</p>
                 <div className="flex items-end gap-1">
                   <h1 className="font-semibold">Total: ${order.total_price}</h1>

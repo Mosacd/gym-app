@@ -2,14 +2,17 @@ import { supabase } from "../supabase";
 
 export const getProductReviews = async (
   productId: string | undefined,
-): Promise<Reviews[]> => {
+): Promise<ProductReviews[]> => {
   if (productId === undefined) {
     throw new Error("User ID is required to fetch orders.");
   }
 
   const { data, error } = await supabase
     .from("reviews")
-    .select("*")
+    .select(`
+      *,
+      profiles!reviews_user_id_fkey ( avatar_url, username )
+    `)
     .eq("product_id", Number(productId))
     .order("like", { ascending: false });
 
@@ -18,7 +21,7 @@ export const getProductReviews = async (
     throw new Error(error.message);
   }
 
-  return (data as Reviews[]) || [];
+  return (data as ProductReviews[]) || [];
 };
 
 export const writeReview = async ({
@@ -78,4 +81,18 @@ export type Reviews = {
   like: number | null;
   product_id: number | null;
   user_id: string | null;
+};
+
+export type ProductReviews = {
+  comment: string | null;
+  created_at: string;
+  dislike: number | null;
+  id: number;
+  like: number | null;
+  product_id: number | null;
+  user_id: string | null;
+  profiles: {
+      avatar_url: string | null;
+      username: string | null;
+    }
 };

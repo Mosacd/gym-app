@@ -11,7 +11,16 @@ export const usePlaceOrder = () => {
     Error,
     {
       userId: string | undefined;
-      items: { productId: number; name: string; price: number | string;  quantity: number; category: string; created_at: string; description: string; image_url: string[]; }[];
+      items: {
+        productId: number;
+        name: string;
+        price: number | string;
+        quantity: number;
+        category: string;
+        created_at: string;
+        description: string;
+        image_url: string[];
+      }[];
       totalPrice: number;
     }
   >({

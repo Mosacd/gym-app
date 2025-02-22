@@ -1,4 +1,3 @@
-
 import { supabase } from "../supabase";
 
 export const placeOrder = async ({
@@ -7,7 +6,16 @@ export const placeOrder = async ({
   totalPrice,
 }: {
   userId: string | undefined;
-  items: { productId: number; name: string; price: number | string;  quantity: number; category: string; created_at: string; description: string; image_url: string[];}[];
+  items: {
+    productId: number;
+    name: string;
+    price: number | string;
+    quantity: number;
+    category: string;
+    created_at: string;
+    description: string;
+    image_url: string[];
+  }[];
   totalPrice: number;
 }): Promise<void> => {
   if (!userId || !items || items.length === 0 || !totalPrice) {
@@ -36,7 +44,6 @@ export const getUserOrders = async (
   if (userId === undefined) {
     throw new Error("User ID is required to fetch orders.");
   }
-  
 
   const { data, error } = await supabase
     .from("orders")
@@ -58,7 +65,6 @@ export const getUserSingleOrder = async (
   if (orderId === undefined) {
     throw new Error("User ID is required to fetch orders.");
   }
-  
 
   const { data, error } = await supabase
     .from("orders")
@@ -70,7 +76,7 @@ export const getUserSingleOrder = async (
     throw new Error(error.message); // Handle or propagate the error
   }
 
-  return data as Order || {};
+  return (data as Order) || {};
 };
 
 export type Order = {
@@ -80,7 +86,16 @@ export type Order = {
   total_price: number | null;
   updated_at: string | null;
   user_id: string | null;
-  item: { productId: number; name: string; price: number | string;  quantity: number; category: string; created_at: string; description: string; image_url: string[]; }[];
+  item: {
+    productId: number;
+    name: string;
+    price: number | string;
+    quantity: number;
+    category: string;
+    created_at: string;
+    description: string;
+    image_url: string[];
+  }[];
 };
 
 export const mapOrdersData = (datalist: Order[]) => {
@@ -96,8 +111,7 @@ export const mapOrdersData = (datalist: Order[]) => {
 };
 
 export const mapSingleOrdersData = (data: Order) => {
-return(
-  {
+  return {
     status: data.status || "",
     created_at: data.created_at || "",
     total_price: data.total_price || "",
@@ -105,8 +119,7 @@ return(
     user_id: data.user_id || "",
     id: data.id,
     item: data.item || [],
-  }
-)
+  };
 };
 
 // export const fetchOrderDetails = async (orderId: number) => {

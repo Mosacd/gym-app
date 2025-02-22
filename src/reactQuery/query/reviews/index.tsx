@@ -1,21 +1,21 @@
-import { getProductReviews, getUserReviews, Reviews } from "@/supabase/reviews";
+import { getProductReviews, getUserReviews, ProductReviews, Reviews } from "@/supabase/reviews";
 import {
   useQuery,
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
 
-export const useGetProductReviews = <T = Reviews[],>({
+export const useGetProductReviews = <T = ProductReviews[],>({
   productId,
   queryOptions,
 }: {
   productId: string | undefined;
   queryOptions?: Omit<
-    UseQueryOptions<Reviews[], Error, T>,
+    UseQueryOptions<ProductReviews[], Error, T>,
     "queryKey" | "queryFn"
   >;
 }): UseQueryResult<T, Error> => {
-  return useQuery<Reviews[], Error, T>({
+  return useQuery<ProductReviews[], Error, T>({
     queryKey: ["productReviews", productId],
     queryFn: () => getProductReviews(productId),
     enabled: !!productId, // Only fetch if productId is defined
