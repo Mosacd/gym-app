@@ -93,7 +93,8 @@ const VirtualizedReviewList: React.FC = () => {
                     }}
                   >
                     <div className="space-y-2">
-                      <div className="flex justify-between items-center">
+                      <div className="flex flex-col sm:flex-row justify-around items-center">
+                       <div className="flex flex-col lg:flex-row lg:gap-14">
                         <div className="flex items-center gap-2">
                           <img
                             src={reviews[
@@ -106,7 +107,7 @@ const VirtualizedReviewList: React.FC = () => {
                             {reviews[row.index].profiles.username}
                           </span>
                         </div>
-                        <div className="flex items-center gap-1 dark:text-white">
+                        <div className="flex text-sm lg:text-base items-center gap-1 dark:text-white">
                           <h1 className="font-semibold">Product Rating:</h1>
                           <h1 className="text-lg font-semibold">5.0</h1>
                           <svg
@@ -132,6 +133,8 @@ const VirtualizedReviewList: React.FC = () => {
                             </g>
                           </svg>
                         </div>
+                        </div>
+                        <div className="flex flex-col lg:flex-row lg:gap-14">
                         <div>
                           <span className="text-sm text-black font-semibold dark:text-white">
                             50 people found this review helpful
@@ -142,11 +145,13 @@ const VirtualizedReviewList: React.FC = () => {
                             {formatTimestamp(reviews[row.index].created_at)}
                           </span>
                         </div>
+                        </div>
                       </div>
                     </div>
                   </li>
                 </DialogTrigger>
-                <DialogContent className="rounded-2xl max-w-screen-lg border-2 border-purple-900 dark:border-purple-900">
+
+                <DialogContent className="rounded-2xl max-w-md sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg border-2 border-purple-900 dark:border-purple-900">
                   <DialogHeader>
                     <DialogTitle className="text-3xl dark:text-neutral-400 text-center">
                       <div>
@@ -180,9 +185,9 @@ const VirtualizedReviewList: React.FC = () => {
                           slightly faster response time. Overall, a solid
                           purchase!
                         </span>
-                        <div className="flex justify-between items-center mt-10">
+                        <div className="flex flex-col sm:flex-row justify-between items-center mt-10">
                           <div className="flex flex-col">
-                            <div className="flex items-center gap-1 dark:text-white">
+                            <div className="flex items-center justify-center gap-1 dark:text-white">
                               <h1 className="font-semibold">Product Rating:</h1>
                               <h1 className="text-lg font-semibold">5.0</h1>
                               <svg
@@ -307,13 +312,6 @@ const VirtualizedReviewList: React.FC = () => {
         )}
       </div>
 
-      {/* <div className="mt-8 text-black dark:text-white h-40">
-        <Textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Write your review here..."
-          className="h-40"
-        /> */}
       <Dialog>
         <DialogTrigger className="w-full flex justify-center">
           <Button className="mt-5 w-full max-w-md p-5 mb-5">
