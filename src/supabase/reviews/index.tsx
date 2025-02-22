@@ -9,10 +9,12 @@ export const getProductReviews = async (
 
   const { data, error } = await supabase
     .from("reviews")
-    .select(`
+    .select(
+      `
       *,
       profiles!reviews_user_id_fkey ( avatar_url, username )
-    `)
+    `,
+    )
     .eq("product_id", Number(productId))
     .order("like", { ascending: false });
 
@@ -92,7 +94,7 @@ export type ProductReviews = {
   product_id: number | null;
   user_id: string | null;
   profiles: {
-      avatar_url: string | null;
-      username: string | null;
-    }
+    avatar_url: string | null;
+    username: string | null;
+  };
 };

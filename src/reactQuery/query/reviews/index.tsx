@@ -1,4 +1,9 @@
-import { getProductReviews, getUserReviews, ProductReviews, Reviews } from "@/supabase/reviews";
+import {
+  getProductReviews,
+  getUserReviews,
+  ProductReviews,
+  Reviews,
+} from "@/supabase/reviews";
 import {
   useQuery,
   UseQueryOptions,

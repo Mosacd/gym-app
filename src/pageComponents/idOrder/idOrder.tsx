@@ -42,7 +42,9 @@ const IdOrder = () => {
       <h1 className="text-3xl mb-5 font-semibold dark:text-white font-mono">
         ORDER {userOrder.id}
       </h1>
-      <h1 className="text-gray-700 dark:text-gray-400 mb-4">placed on {userOrder.created_at}</h1>
+      <h1 className="text-gray-700 dark:text-gray-400 mb-4">
+        placed on {userOrder.created_at}
+      </h1>
       <table className="w-full max-w-screen-md bg-white dark:bg-neutral-950 border-separate border-4 rounded-md text-center dark:border-neutral-800 dark:text-gray-400 hidden sm:table">
         <thead className="bg-gray-200 dark:bg-black dark:text-white text-sm font-semibold uppercase text-gray-600">
           <tr className="*:px-2 *:border-b-2 *:dark:border-neutral-800 *:text-xs sm:*:text-base md:*:px-4  *:py-2">
@@ -112,7 +114,9 @@ const IdOrder = () => {
           </Card>
         ))}
       </div>
-      <h1 className="text-gray-700 dark:text-gray-400 mb-4 text-xl mt-4 font-semibold">Total Price: {userOrder.total_price}$</h1>
+      <h1 className="text-gray-700 dark:text-gray-400 mb-4 text-xl mt-4 font-semibold">
+        Total Price: {userOrder.total_price}$
+      </h1>
     </div>
   );
 };

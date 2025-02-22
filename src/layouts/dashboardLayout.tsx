@@ -11,7 +11,6 @@ const DashboardLayout: React.FC = () => {
         <div className="absolute  top-0 left-10 md:left-20 w-20 h-full bg-black opacity-5 dark:bg-white"></div>
         {/* <div className="absolute hidden lg:inline  top-0 right-1/3 w-20 h-full bg-black opacity-5 dark:bg-white"></div> */}
         <div className="absolute  top-0 right-10 md:right-20 w-20 h-full bg-black opacity-5 dark:bg-white"></div>
-       
       </div>
 
       <Header />
@@ -19,8 +18,8 @@ const DashboardLayout: React.FC = () => {
       <div className="relative mt-20 min-h-screen z-10">
         <Outlet />
       </div>
-      <div className="relative"> 
-      <Footer />
+      <div className="relative">
+        <Footer />
       </div>
     </div>
   );
