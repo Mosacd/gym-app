@@ -8,9 +8,9 @@ const DashboardLayout: React.FC = () => {
       {/* Decorative Background Elements - Straight Lines */}
       <div className="absolute top-0 left-0 w-full h-full z-0">
         {/* <div className="absolute hidden lg:inline  top-0 left-1/3  w-20 h-full bg-black opacity-5 dark:bg-white"></div> */}
-        <div className="absolute  top-0 left-10 md:left-20 w-20 h-full bg-black opacity-5 dark:bg-white"></div>
+        <div className="absolute  top-0 left-10 md:left-20 w-20 h-full bg-black opacity-10 dark:bg-white"></div>
         {/* <div className="absolute hidden lg:inline  top-0 right-1/3 w-20 h-full bg-black opacity-5 dark:bg-white"></div> */}
-        <div className="absolute  top-0 right-10 md:right-20 w-20 h-full bg-black opacity-5 dark:bg-white"></div>
+        <div className="absolute  top-0 right-10 md:right-20 w-20 h-full bg-black opacity-10 dark:bg-white"></div>
       </div>
 
       <Header />

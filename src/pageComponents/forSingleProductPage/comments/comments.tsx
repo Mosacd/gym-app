@@ -4,7 +4,7 @@ import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 import { useWriteReview } from "@/reactQuery/mutations/reviews";
 import { useGetProductReviews } from "@/reactQuery/query/reviews";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import emptyReviewsSVG from "@/assets/undraw_add-notes_9xls.svg";
 import {
@@ -16,29 +16,39 @@ import {
   DialogTrigger,
 } from "@/componentsShadcn/ui/dialog";
 import { Button } from "@/componentsShadcn/ui/button";
-import { Textarea } from "@/componentsShadcn/ui/textarea";
 import { toast } from "sonner";
+import ReviewForm from "./ReviewForm";
 
 const VirtualizedReviewList: React.FC = () => {
   const { user } = useAuthContext();
-  const { mutate: writeReview } = useWriteReview();
+  const { mutate: writeReview, isError, error, isPending } = useWriteReview();
   const { id } = useParams<{ id: string }>();
-  const [message, setMessage] = useState("");
+
   const containerRef = useRef<HTMLDivElement>(null);
   const reviewHeights = useRef<Map<number, number>>(new Map());
   const { data: reviews = [], refetch } = useGetProductReviews({
     productId: id,
   });
 
-  const handleSubmit = () => {
-    if (message.trim() === "") return;
-    if (!user) return;
+  const onSubmit = (values: {rating:number, description:string}) => {
+    if (values.description.trim() === ""){
+      toast("messege empty");
+      return;
+    };
+    if (!user || !user.id) {
+      toast("You need to be Signed In for this action!");
+      return;
+    };
+    if(!id){
+      toast("Invalid Product id");
+      return;
+    }
+
     toast("Review Has Been Added");
     writeReview(
-      { userId: user.id, comment: message, productId: id },
+      { userId: user.id, rating: values.rating, comment: values.description, productId: id },
       {
         onSuccess: () => {
-          setMessage("");
           refetch();
         },
         onError: (error) => console.error("Error submitting review:", error),
@@ -94,57 +104,57 @@ const VirtualizedReviewList: React.FC = () => {
                   >
                     <div className="space-y-2">
                       <div className="flex flex-col sm:flex-row justify-around items-center">
-                       <div className="flex flex-col lg:flex-row lg:gap-14">
-                        <div className="flex items-center gap-2">
-                          <img
-                            src={reviews[
-                              row.index
-                            ].profiles.avatar_url?.toString()}
-                            alt=""
-                            className="w-10 h-10 rounded-md"
-                          />
-                          <span className="font-semibold">
-                            {reviews[row.index].profiles.username}
-                          </span>
-                        </div>
-                        <div className="flex text-sm lg:text-base items-center gap-1 dark:text-white">
-                          <h1 className="font-semibold">Product Rating:</h1>
-                          <h1 className="text-lg font-semibold">5.0</h1>
-                          <svg
-                            className="h-5 w-5 fill-yellow-500"
-                            viewBox="0 0 24 24"
-                            fill=""
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g
-                              id="SVGRepo_tracerCarrier"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            ></g>
-                            <g id="SVGRepo_iconCarrier">
-                              {" "}
-                              <path
-                                d="M6.03954 7.77203C3.57986 8.32856 2.35002 8.60682 2.05742 9.54773C1.76482 10.4886 2.60325 11.4691 4.2801 13.4299L4.71392 13.9372C5.19043 14.4944 5.42868 14.773 5.53586 15.1177C5.64305 15.4624 5.60703 15.8341 5.53498 16.5776L5.4694 17.2544C5.21588 19.8706 5.08912 21.1787 5.85515 21.7602C6.62118 22.3417 7.77268 21.8115 10.0757 20.7512L10.6715 20.4768C11.3259 20.1755 11.6531 20.0248 12 20.0248C12.3469 20.0248 12.6741 20.1755 13.3285 20.4768L13.9243 20.7512C16.2273 21.8115 17.3788 22.3417 18.1449 21.7602C18.9109 21.1787 18.7841 19.8706 18.5306 17.2544M19.7199 13.4299C21.3968 11.4691 22.2352 10.4886 21.9426 9.54773C21.65 8.60682 20.4201 8.32856 17.9605 7.77203L17.3241 7.62805C16.6251 7.4699 16.2757 7.39083 15.9951 7.17781C15.7144 6.96479 15.5345 6.64193 15.1745 5.99623L14.8468 5.40837C13.5802 3.13612 12.9469 2 12 2C11.0531 2 10.4198 3.13613 9.15316 5.40838"
-                                stroke="#1C274C"
-                                stroke-width="1.5"
+                        <div className="flex flex-col lg:flex-row lg:gap-14">
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={reviews[
+                                row.index
+                              ].profiles.avatar_url?.toString()}
+                              alt=""
+                              className="w-10 h-10 rounded-md"
+                            />
+                            <span className="font-semibold">
+                              {reviews[row.index].profiles.username}
+                            </span>
+                          </div>
+                          <div className="flex text-sm lg:text-base items-center gap-1 dark:text-white">
+                            <h1 className="font-semibold">Product Rating:</h1>
+                            <h1 className="text-lg font-semibold">5.0</h1>
+                            <svg
+                              className="h-5 w-5 fill-yellow-500"
+                              viewBox="0 0 24 24"
+                              fill=""
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                              <g
+                                id="SVGRepo_tracerCarrier"
                                 stroke-linecap="round"
-                              ></path>{" "}
-                            </g>
-                          </svg>
-                        </div>
+                                stroke-linejoin="round"
+                              ></g>
+                              <g id="SVGRepo_iconCarrier">
+                                {" "}
+                                <path
+                                  d="M6.03954 7.77203C3.57986 8.32856 2.35002 8.60682 2.05742 9.54773C1.76482 10.4886 2.60325 11.4691 4.2801 13.4299L4.71392 13.9372C5.19043 14.4944 5.42868 14.773 5.53586 15.1177C5.64305 15.4624 5.60703 15.8341 5.53498 16.5776L5.4694 17.2544C5.21588 19.8706 5.08912 21.1787 5.85515 21.7602C6.62118 22.3417 7.77268 21.8115 10.0757 20.7512L10.6715 20.4768C11.3259 20.1755 11.6531 20.0248 12 20.0248C12.3469 20.0248 12.6741 20.1755 13.3285 20.4768L13.9243 20.7512C16.2273 21.8115 17.3788 22.3417 18.1449 21.7602C18.9109 21.1787 18.7841 19.8706 18.5306 17.2544M19.7199 13.4299C21.3968 11.4691 22.2352 10.4886 21.9426 9.54773C21.65 8.60682 20.4201 8.32856 17.9605 7.77203L17.3241 7.62805C16.6251 7.4699 16.2757 7.39083 15.9951 7.17781C15.7144 6.96479 15.5345 6.64193 15.1745 5.99623L14.8468 5.40837C13.5802 3.13612 12.9469 2 12 2C11.0531 2 10.4198 3.13613 9.15316 5.40838"
+                                  stroke="#1C274C"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                ></path>{" "}
+                              </g>
+                            </svg>
+                          </div>
                         </div>
                         <div className="flex flex-col lg:flex-row lg:gap-14">
-                        <div>
-                          <span className="text-sm text-black font-semibold dark:text-white">
-                            50 people found this review helpful
-                          </span>
-                        </div>
-                        <div>
-                          <span className="text-sm text-gray-500">
-                            {formatTimestamp(reviews[row.index].created_at)}
-                          </span>
-                        </div>
+                          <div>
+                            <span className="text-sm text-black font-semibold dark:text-white">
+                              50 people found this review helpful
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-sm text-gray-500">
+                              {formatTimestamp(reviews[row.index].created_at)}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -174,17 +184,11 @@ const VirtualizedReviewList: React.FC = () => {
                     </DialogTitle>
                     <DialogDescription className="w-full">
                       <div className="w-full text-lg text-center mt-10 text-black dark:text-gray-400">
+                        <div className="break-words break-all overflow-hidden">
                         <span>
-                          {reviews[row.index].comment} The [Product Name]
-                          exceeded my expectations with its sleek design and
-                          reliable performance. It's user-friendly, durable, and
-                          offers great value for the price. The battery life is
-                          impressive, and the features are well thought out,
-                          making it a great choice for both beginners and
-                          experienced users. However, it could benefit from a
-                          slightly faster response time. Overall, a solid
-                          purchase!
+                          {reviews[row.index].comment}
                         </span>
+                        </div>
                         <div className="flex flex-col sm:flex-row justify-between items-center mt-10">
                           <div className="flex flex-col">
                             <div className="flex items-center justify-center gap-1 dark:text-white">
@@ -321,25 +325,14 @@ const VirtualizedReviewList: React.FC = () => {
         <DialogContent className="rounded-2xl max-w-screen-lg border-2 border-purple-900 dark:border-purple-900">
           <DialogHeader>
             <DialogTitle className="text-2xl dark:text-neutral-400 text-center">
-              Write A Review
+              Add Your Review
             </DialogTitle>
             <DialogDescription className="text-left">
-              <div className="mt-5">
-                <Textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Write your review here..."
-                  className="h-40 text-black font-semibold"
-                />
-                <div className="flex w-full justify-center">
-                  <Button
-                    className="mt-5 w-full max-w-md p-5 mb-5"
-                    onClick={handleSubmit}
-                  >
-                    Add Your Review
-                  </Button>
-                </div>
-              </div>
+              {user ? (
+                <div className="w-full flex justify-center">
+                <ReviewForm onSubmit={onSubmit} isError={isError} error={error} isPending={isPending}/>
+                </div>) : (<div className="p-5 text-center text-lg"><h1>You need to be signed in for this action</h1></div>)}
+             
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

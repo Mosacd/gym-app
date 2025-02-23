@@ -59,6 +59,7 @@ const ProductDetail: React.FC = () => {
 
   const handleAddToWishlist = () => {
     if (!user) {
+      toast("You need to be Signed In for this action!");
       throw new Error("User is not authenticated");
     }
     toast("Item Added To Favourites💫");

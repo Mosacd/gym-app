@@ -243,13 +243,13 @@ const CartPage = () => {
               ))
             ) : (
               <div className="text-center py-4">
-                <h1 className="font-semibold text-lg pb-4">
+                <h1 className="font-semibold text-lg pb-4 text-black dark:text-white">
                   Your cart is empty
                 </h1>
                 <img
                   src={emptyCartSVG}
                   alt=""
-                  className="max-w-72 m-auto border-2 p-1 rounded-lg"
+                  className="max-w-72 m-auto border-2 p-1 rounded-lg bg-white dark:bg-neutral-950"
                 />
               </div>
             )}

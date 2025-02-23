@@ -8,9 +8,10 @@ export const useWriteReview = () => {
     void,
     Error,
     {
-      userId: string | undefined;
-      productId: string | undefined;
-      comment: string | undefined;
+      userId: string;
+      rating:number;
+      productId: string;
+      comment: string;
     }
   >({
     mutationKey: ["writeReview"],

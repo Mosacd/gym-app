@@ -29,11 +29,13 @@ export const getProductReviews = async (
 export const writeReview = async ({
   userId,
   productId,
+  rating,
   comment,
 }: {
-  userId: string | undefined;
-  productId: string | undefined;
-  comment: string | undefined;
+  userId: string;
+  rating:number;
+  productId: string;
+  comment: string;
 }): Promise<void> => {
   // Validate input
   console.log("userId: ", userId);
@@ -44,6 +46,7 @@ export const writeReview = async ({
     {
       user_id: userId,
       product_id: Number(productId),
+      rating:rating,
       comment: comment,
     },
   ]);
@@ -83,6 +86,7 @@ export type Reviews = {
   like: number | null;
   product_id: number | null;
   user_id: string | null;
+  rating: string | null
 };
 
 export type ProductReviews = {
@@ -93,6 +97,7 @@ export type ProductReviews = {
   like: number | null;
   product_id: number | null;
   user_id: string | null;
+  rating: string | null
   profiles: {
     avatar_url: string | null;
     username: string | null;
