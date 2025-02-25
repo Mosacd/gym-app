@@ -103,14 +103,14 @@ const Account = () => {
   }
 
   return (
-    <Card className="border-4 dark:border-neutral-800 text-center sm:text-start flex flex-col *:w-full items-center sm:items-start">
+    <Card className="border-none shadow-none bg-transparent dark:bg-transparent dark:border-neutral-800 text-center sm:text-start flex flex-col *:w-full items-center sm:items-start">
       <CardHeader>
         <CardTitle>Account</CardTitle>
         <CardDescription>
           Make changes to your account here. Click save when you're done.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-2 ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:flex-nowrap w-full sm:gap-20">
@@ -126,6 +126,7 @@ const Account = () => {
                           id="Full_Name_En"
                           placeholder={profileData.full_name_en}
                           {...field}
+                          className="bg-white dark:bg-neutral-950"
                         />
                       </FormControl>
                       <FormMessage />
@@ -145,6 +146,7 @@ const Account = () => {
                           id="Full_Name_Ka"
                           placeholder={profileData.full_name_ka}
                           {...field}
+                          className="bg-white dark:bg-neutral-950"
                         />
                       </FormControl>
                       <FormMessage />
@@ -166,6 +168,7 @@ const Account = () => {
                           id="username"
                           placeholder={profileData.username}
                           {...field}
+                          className="bg-white dark:bg-neutral-950"
                         />
                       </FormControl>
                       <FormMessage />
@@ -185,6 +188,7 @@ const Account = () => {
                           id="phone_number"
                           placeholder={profileData.phone_number}
                           {...field}
+                          className="bg-white dark:bg-neutral-950"
                         />
                       </FormControl>
                       <FormMessage />
@@ -206,6 +210,7 @@ const Account = () => {
                           id="address"
                           placeholder={profileData.address}
                           {...field}
+                          className="bg-white dark:bg-neutral-950"
                         />
                       </FormControl>
                       <FormMessage />
@@ -225,6 +230,7 @@ const Account = () => {
                           id="avatar_url"
                           placeholder={profileData.avatar_url}
                           {...field}
+                          className="bg-white dark:bg-neutral-950"
                         />
                       </FormControl>
                       <FormMessage />

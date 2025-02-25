@@ -4,7 +4,7 @@ import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 import { useCartContext } from "@/context/cart/hooks/useCartContext";
 import CaruselForPages from "@/pageComponents/forHome/carouselMain/carusel";
 import FeaturesSection from "@/pageComponents/forHome/featuresSection/featuresSection";
-import VirtualizedAnswerList from "@/pageComponents/forSingleProductPage/comments/comments";
+import VirtualizedReviewList from "@/pageComponents/forSingleProductPage/comments/comments";
 import { Loader } from "@/pageComponents/loader/loader";
 import { useAddToWishlist } from "@/reactQuery/mutations/whishlist";
 import { useGetSingleProduct } from "@/reactQuery/query/products";
@@ -169,7 +169,7 @@ const ProductDetail: React.FC = () => {
         <h1 className="text-2xl sm:text-3xl block h-12 dark:text-white font-semibold border-b-black dark:border-b-white border-b-2 w-full max-w-screen-lg text-center">
           Reviews
         </h1>
-        <VirtualizedAnswerList />
+        <VirtualizedReviewList />
       </div>
 
       <FeaturesSection />

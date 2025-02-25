@@ -18,7 +18,7 @@ const Profile = () => {
 
       <div className="flex justify-center p-2 pb-20 min-h-96">
         <Tabs defaultValue="account" className="w-full max-w-screen-lg">
-          <TabsList className="flex flex-col gap-1 border-2 dark:border-neutral-800 *:w-full w-full h-fit *:p-2 sm:*:p-1 sm:p-1 sm:flex-row">
+          <TabsList className="flex *:text-base *:p-3 flex-col gap-1 border-2 dark:border-neutral-800 *:w-full w-full h-fit sm:*:p-1 sm:p-1 sm:flex-row">
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="orders">Orders</TabsTrigger>
             <TabsTrigger value="whishlist">Whishlist</TabsTrigger>

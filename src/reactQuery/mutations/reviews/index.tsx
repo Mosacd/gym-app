@@ -9,7 +9,7 @@ export const useWriteReview = () => {
     Error,
     {
       userId: string;
-      rating:number;
+      rating: number;
       productId: string;
       comment: string;
     }
@@ -20,7 +20,11 @@ export const useWriteReview = () => {
     onSuccess: (_, { userId, productId }) => {
       console.log("Review submitted successfully!");
       queryClient.invalidateQueries({
-        queryKey: ["Reviews", userId, productId],
+        queryKey: ["userReviews", userId],
+        exact: true,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["productReviews", productId],
         exact: true,
       });
     },

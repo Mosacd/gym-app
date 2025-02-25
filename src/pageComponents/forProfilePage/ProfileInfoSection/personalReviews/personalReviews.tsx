@@ -8,36 +8,26 @@ import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 import { useGetUserReviews } from "@/reactQuery/query/reviews";
 import { Link } from "react-router-dom";
 import noReviewsSVG from "@/assets/undraw_reviews_ukai.svg";
+import { mapUserReviewsData } from "@/supabase/reviews";
+
 
 const PersonalReviews = () => {
   const { user } = useAuthContext();
 
-  const { data: userReviews = [] } = useGetUserReviews({ userId: user?.id });
+  const { data: userReviews = [], isLoading } = useGetUserReviews({  queryOptions: { select: mapUserReviewsData }, userId: user?.id });
+
+  const formatTimestamp = (isoString: string) =>
+    new Date(isoString).toLocaleString();
 
   return (
-    <Card className="border-4 dark:border-neutral-800">
+    <>
+    {isLoading ? "":(<Card className="border-none shadow-none bg-transparent dark:bg-transparent dark:border-neutral-800">
       <CardHeader>
         <CardTitle className="text-center">
-          {userReviews.length} Reviews
+          {userReviews.length}{userReviews.length !== 1 ? "Reviews" : "Review"} 
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
-        {/* <li
-      key={comment.id}
-      className=" p-4 border-b border-b-black dark:border-b-white bg-white dark:bg-black dark:text-white"
-    >
-      <div className="space-y-2">
-        <div className="flex justify-between items-center">
-          <span className="font-semibold">{comment.author_username}</span>
-          <span className="text-sm text-gray-500">
-            {comment.created_at}
-          </span>
-        </div>
-        <p className="text-gray-700 dark:text-gray-300">{comment.content}</p>
-        <div className="flex justify-between items-center text-sm"></div>
-      </div>
-    </li> */}
-        <div className="flex gap-2 flex-wrap justify-center">
+      <CardContent className="space-y-2"> 
           {userReviews.length === 0 ? (
             <img
               src={noReviewsSVG}
@@ -47,19 +37,25 @@ const PersonalReviews = () => {
           ) : (
             userReviews.map((comment) => {
               return (
-                <Link to={`/dashboard/productDetail/${comment.product_id}`}>
-                  <div className="border-2 dark:border-neutral-800 p-5 rounded-md">
-                    <h1 className="text-lg">{comment.product_id} Review</h1>
-                    <p>likes:34</p>
-                    <h1>{comment.created_at}</h1>
+                <Link key={comment.id} className="w-full max-w-sm" to={`/dashboard/productDetail/${comment.product_id}`}>
+                <div className="group mb-3 flex flex-col bg-white dark:bg-neutral-950 gap-5 sm:flex-row border-2 px-5 rounded-md dark:border-neutral-800 p-3 justify-between items-center hover:border-black dark:hover:border-white hover:-translate-y-2 transition-all duration-200">                    
+                  <div className="flex items-center gap-3 ">
+               
+                    <img className="w-20 h-20 rounded-full" src={comment.product.image_url[0]} alt={comment.product.name} />
+                    <h1 className="text-lg sm:text-xl font-semibold">{comment.product.name}</h1>
+                    </div>
+                    <p className="text-neutral-500 dark:text-neutral-400">{comment.like} people found this review helpful</p>
+                    <h1>{formatTimestamp(comment.created_at)}</h1>
                   </div>
+                  
                 </Link>
               );
             })
           )}
-        </div>
+   
       </CardContent>
-    </Card>
+    </Card>)}
+    </>
   );
 };
 

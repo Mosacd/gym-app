@@ -26,31 +26,34 @@ const VirtualizedReviewList: React.FC = () => {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const reviewHeights = useRef<Map<number, number>>(new Map());
-  const { data: reviews = [], refetch } = useGetProductReviews({
+  const { data: reviews = [] } = useGetProductReviews({
     productId: id,
   });
-
-  const onSubmit = (values: {rating:number, description:string}) => {
-    if (values.description.trim() === ""){
+ 
+  const onSubmit = (values: { rating: number; description: string }) => {
+    if (values.description.trim() === "") {
       toast("messege empty");
       return;
-    };
+    }
     if (!user || !user.id) {
       toast("You need to be Signed In for this action!");
       return;
-    };
-    if(!id){
+    }
+    if (!id) {
       toast("Invalid Product id");
       return;
     }
 
     toast("Review Has Been Added");
     writeReview(
-      { userId: user.id, rating: values.rating, comment: values.description, productId: id },
       {
-        onSuccess: () => {
-          refetch();
-        },
+        userId: user.id,
+        rating: values.rating,
+        comment: values.description,
+        productId: id,
+      },
+      {
+       
         onError: (error) => console.error("Error submitting review:", error),
       },
     );
@@ -70,7 +73,7 @@ const VirtualizedReviewList: React.FC = () => {
     <div className="max-w-screen-lg w-full">
       <div
         ref={containerRef}
-        className={`h-[300px] p-5 pb-20 px-10 block-shadow   max-w-screen-lg w-full overflow-auto rounded-lg scrollbar-hide`}
+        className={`h-[300px] p-5 ${reviews.length > 0 ? "pb-20" : ""} px-10 block-shadow   max-w-screen-lg w-full overflow-auto rounded-lg scrollbar-hide`}
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
@@ -119,7 +122,7 @@ const VirtualizedReviewList: React.FC = () => {
                           </div>
                           <div className="flex text-sm lg:text-base items-center gap-1 dark:text-white">
                             <h1 className="font-semibold">Product Rating:</h1>
-                            <h1 className="text-lg font-semibold">5.0</h1>
+                            <h1 className="text-lg font-semibold">{reviews[row.index].rating}</h1>
                             <svg
                               className="h-5 w-5 fill-yellow-500"
                               viewBox="0 0 24 24"
@@ -185,15 +188,13 @@ const VirtualizedReviewList: React.FC = () => {
                     <DialogDescription className="w-full">
                       <div className="w-full text-lg text-center mt-10 text-black dark:text-gray-400">
                         <div className="break-words break-all overflow-hidden">
-                        <span>
-                          {reviews[row.index].comment}
-                        </span>
+                          <span>{reviews[row.index].comment}</span>
                         </div>
                         <div className="flex flex-col sm:flex-row justify-between items-center mt-10">
                           <div className="flex flex-col">
                             <div className="flex items-center justify-center gap-1 dark:text-white">
                               <h1 className="font-semibold">Product Rating:</h1>
-                              <h1 className="text-lg font-semibold">5.0</h1>
+                              <h1 className="text-lg font-semibold">{reviews[row.index].rating}</h1>
                               <svg
                                 className="h-5 w-5 fill-yellow-500"
                                 viewBox="0 0 24 24"
@@ -322,7 +323,7 @@ const VirtualizedReviewList: React.FC = () => {
             Add Your Review
           </Button>
         </DialogTrigger>
-        <DialogContent className="rounded-2xl max-w-screen-lg border-2 border-purple-900 dark:border-purple-900">
+        <DialogContent className="rounded-2xl border-2 border-purple-900 dark:border-purple-900 max-w-md sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg">
           <DialogHeader>
             <DialogTitle className="text-2xl dark:text-neutral-400 text-center">
               Add Your Review
@@ -330,9 +331,18 @@ const VirtualizedReviewList: React.FC = () => {
             <DialogDescription className="text-left">
               {user ? (
                 <div className="w-full flex justify-center">
-                <ReviewForm onSubmit={onSubmit} isError={isError} error={error} isPending={isPending}/>
-                </div>) : (<div className="p-5 text-center text-lg"><h1>You need to be signed in for this action</h1></div>)}
-             
+                  <ReviewForm
+                    onSubmit={onSubmit}
+                    isError={isError}
+                    error={error}
+                    isPending={isPending}
+                  />
+                </div>
+              ) : (
+                <div className="p-5 text-center text-lg">
+                  <h1>You need to be signed in for this action</h1>
+                </div>
+              )}
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

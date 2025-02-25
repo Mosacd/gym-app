@@ -76,7 +76,7 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
   }
 
   return (
-    <div className="h-[1000px] m-auto max-w-sm sm:max-w-none w-full border-4 pt-5 rounded-lg block-shadow dark:border-neutral-800">
+    <div className="h-[1000px] m-auto max-w-sm sm:max-w-screen-lg w-full  pt-5 rounded-lg block-shadow dark:border-neutral-800">
       <div
         ref={containerRef}
         className="h-[900px] overflow-auto scrollbar-hide"

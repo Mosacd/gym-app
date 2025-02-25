@@ -33,7 +33,7 @@ export const writeReview = async ({
   comment,
 }: {
   userId: string;
-  rating:number;
+  rating: number;
   productId: string;
   comment: string;
 }): Promise<void> => {
@@ -46,7 +46,7 @@ export const writeReview = async ({
     {
       user_id: userId,
       product_id: Number(productId),
-      rating:rating,
+      rating: rating,
       comment: comment,
     },
   ]);
@@ -67,7 +67,12 @@ export const getUserReviews = async (
   console.log("id: ", id);
   const { data, error } = await supabase
     .from("reviews")
-    .select("*")
+    .select(
+      `
+      *,
+      product!reviews_product_id_fkey ( image_url, name )
+    `,
+    ).order("created_at", { ascending: false })
     .eq("user_id", id);
 
   if (error) {
@@ -78,6 +83,24 @@ export const getUserReviews = async (
   return (data as Reviews[]) || [];
 };
 
+
+export const mapUserReviewsData = (datalist: Reviews[]) => {
+  return datalist.map((data) => ({
+    comment: data.comment || "",
+    created_at: data.created_at || "",
+    dislike: data.dislike || "",
+    like: data.like || "",
+    product_id: data.product_id || "",
+    user_id: data.user_id || "",
+    rating: data.rating || "",
+    product: {
+      image_url: data.product.image_url || [""],
+      name: data.product.name || "",
+    },
+    id: data.id,
+  }));
+};
+
 export type Reviews = {
   comment: string | null;
   created_at: string;
@@ -86,7 +109,11 @@ export type Reviews = {
   like: number | null;
   product_id: number | null;
   user_id: string | null;
-  rating: string | null
+  rating: string | null;
+  product:{
+    image_url: string[] | null;
+    name: string | null;
+  }
 };
 
 export type ProductReviews = {
@@ -97,7 +124,7 @@ export type ProductReviews = {
   like: number | null;
   product_id: number | null;
   user_id: string | null;
-  rating: string | null
+  rating: string | null;
   profiles: {
     avatar_url: string | null;
     username: string | null;

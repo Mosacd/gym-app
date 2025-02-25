@@ -13,16 +13,18 @@ import { Link } from "react-router-dom";
 const Whishlist = () => {
   const { user } = useAuthContext();
 
-  const { data: whishlistProducts = [] } = useGetWhishlistedProducts(
+  const { data: whishlistProducts = [], isLoading } = useGetWhishlistedProducts(
     { queryOptions: { select: mapProductTableData } },
     user?.id,
   );
 
   return (
-    <Card className="border-4 dark:border-neutral-800">
+    <>
+    {isLoading ? "":(
+    <Card className="border-none shadow-none bg-transparent dark:bg-transparent dark:border-neutral-800">
       <CardHeader>
         <CardTitle className="text-center">
-          {whishlistProducts.length} Whishlists
+          {whishlistProducts.length} {whishlistProducts.length !== 1  ? "Whishlists" : "Whishlist"} 
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
@@ -44,7 +46,7 @@ const Whishlist = () => {
                     key={product.id}
                     className="flex-1 max-w-60  cursor-pointer"
                   >
-                    <div className="group hover:border-black dark:hover:border-white border-2 bg-white rounded-lg  hover:shadow-md hover:bg-gray-100 dark:hover:bg-neutral-900 transiton-shadow duration-200  dark:border-neutral-800 dark:bg-neutral-950 dark:text-white">
+                    <div className="group hover:border-black  dark:hover:border-white border-2 bg-white rounded-lg  hover:shadow-md hover:bg-gray-100 dark:hover:bg-neutral-900 transiton-shadow duration-200  dark:border-neutral-800 dark:bg-neutral-950 dark:text-white">
                       <div className="w-full p-4 flex items-center justify-center">
                         <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-50 group-hover:scale-110 transform-all duration-200">
                           <img
@@ -68,6 +70,8 @@ const Whishlist = () => {
         </div>
       </CardContent>
     </Card>
+    )}
+    </>
   );
 };
 
