@@ -1,9 +1,8 @@
-import { Product } from "../products";
 import { supabase } from "../supabase";
 
 export const getWishlistedProducts = async (
   userId: string | undefined,
-): Promise<Product[]> => {
+): Promise<WhishlistItem[]> => {
   if (!userId) {
     throw new Error("User ID is required to fetch wishlisted products.");
   }
@@ -13,6 +12,7 @@ export const getWishlistedProducts = async (
     .select(
       `
       id,
+      user_id,
       product:product_id (
         id,
         name,
@@ -32,11 +32,37 @@ export const getWishlistedProducts = async (
   }
 
   // Transform the response if needed (optional)
-  return (
-    (data?.map((wishlistItem) => ({
-      ...wishlistItem.product,
-    })) as Product[]) || []
-  );
+  return data as WhishlistItem[] || []
+};
+
+export type WhishlistItem = {
+  id: number;
+  user_id: string | null;
+  product: {
+      id: number;
+      name: string | null;
+      description: string | null;
+      created_at: string;
+      price: number | null;
+      category: string | null;
+      image_url: string[] | null;
+  }
+}
+
+export const mapWhishlistItemData = (datalist: WhishlistItem[]) => {
+  return datalist.map((data) => ({
+    id: data.id,
+    user_id: data.user_id || "",
+    product: {
+      id: data.product.id,
+      name: data.product.name || "",
+      description: data.product.description || "",
+      created_at: data.product.created_at || "",
+      price: data.product.price || 0,
+      category: data.product.category || "",
+      image_url: data.product.image_url || [""],
+    },
+  }));
 };
 
 export const addToWishlist = async ({
@@ -61,3 +87,29 @@ export const addToWishlist = async ({
     throw new Error(error.message);
   }
 };
+
+
+export const deleteFromWishlist = async ({
+  userId,
+  productId,
+}: {
+  userId: string | undefined;
+  productId: number | undefined;
+}): Promise<void> => {
+  if (!userId || !productId) {
+    throw new Error(
+      "User ID and Product ID are required to delete from the wishlist.",
+    );
+  }
+
+  const { error } = await supabase
+    .from("wishlist")
+    .delete()
+    .eq("user_id", userId)
+    .eq("product_id", Number(productId));
+
+  if (error) {
+    console.error("Error deleting item from wishlist:", error.message);
+    throw new Error(error.message);
+  }
+}

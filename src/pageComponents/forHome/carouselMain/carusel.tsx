@@ -37,6 +37,7 @@ const CaruselForPages: React.FC<CarouselProps> = ({
   headerText,
   carouselType,
 }) => {
+  
   const { data: productWithCategory = [] } = useGetProductListWithCategory(
     { queryOptions: { select: mapProductTableData } },
     productType,

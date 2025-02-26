@@ -58,6 +58,15 @@ export const writeReview = async ({
   }
 };
 
+export const deleteReview = async (reviewId: number): Promise<void> => {
+  const { error } = await supabase.from("reviews").delete().eq("id", reviewId);
+
+  if (error) {
+    console.error("Error deleting review:", error.message);
+    throw new Error("Failed to delete the review. Please try again later.");
+  }
+}
+
 export const getUserReviews = async (
   id: string | undefined,
 ): Promise<Reviews[]> => {
@@ -72,7 +81,8 @@ export const getUserReviews = async (
       *,
       product!reviews_product_id_fkey ( image_url, name )
     `,
-    ).order("created_at", { ascending: false })
+    )
+    .order("created_at", { ascending: false })
     .eq("user_id", id);
 
   if (error) {
@@ -83,13 +93,35 @@ export const getUserReviews = async (
   return (data as Reviews[]) || [];
 };
 
+// export const likeReview = async ({reviewId, hasLiked}:{reviewId:number,hasLiked:boolean}): Promise<void> => {
+//   // Step 1: Update has_liked status
+//   const { error: updateError } = await supabase
+//     .from("reviews")
+//     .update({ has_liked: !hasLiked })
+//     .eq("id", reviewId);
+
+//   if (updateError) {
+//     console.error("Error updating like status:", updateError);
+//     return;
+//   }
+
+//   // Step 2: Increment or decrement like_count using RPC
+//   const { error: rpcError } = await supabase.rpc(
+//     hasLiked ? "decrement_like_count" : "increment_like_count",
+//     { review_id: reviewId }
+//   );
+
+//   if (rpcError) {
+//     console.error("Error updating like count:", rpcError);
+//   }
+// };
+
 
 export const mapUserReviewsData = (datalist: Reviews[]) => {
   return datalist.map((data) => ({
     comment: data.comment || "",
     created_at: data.created_at || "",
-    dislike: data.dislike || "",
-    like: data.like || "",
+    like_count: data.like_count || "",
     product_id: data.product_id || "",
     user_id: data.user_id || "",
     rating: data.rating || "",
@@ -104,24 +136,22 @@ export const mapUserReviewsData = (datalist: Reviews[]) => {
 export type Reviews = {
   comment: string | null;
   created_at: string;
-  dislike: number | null;
   id: number;
-  like: number | null;
+  like_count: number | null;
   product_id: number | null;
   user_id: string | null;
   rating: string | null;
-  product:{
+  product: {
     image_url: string[] | null;
     name: string | null;
-  }
+  };
 };
 
 export type ProductReviews = {
   comment: string | null;
   created_at: string;
-  dislike: number | null;
   id: number;
-  like: number | null;
+  like_count: number | null;
   product_id: number | null;
   user_id: string | null;
   rating: string | null;

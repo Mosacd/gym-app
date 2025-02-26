@@ -1,10 +1,8 @@
-// import { Button } from "@/componentsShadcn/ui/button";
-// import { Textarea } from "@/componentsShadcn/ui/textarea";
 import { useAuthContext } from "@/context/auth/hooks/useAuthContext";
 import { useWriteReview } from "@/reactQuery/mutations/reviews";
 import { useGetProductReviews } from "@/reactQuery/query/reviews";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import emptyReviewsSVG from "@/assets/undraw_add-notes_9xls.svg";
 import {
@@ -23,28 +21,28 @@ const VirtualizedReviewList: React.FC = () => {
   const { user } = useAuthContext();
   const { mutate: writeReview, isError, error, isPending } = useWriteReview();
   const { id } = useParams<{ id: string }>();
+  const [open, setOpen] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const reviewHeights = useRef<Map<number, number>>(new Map());
   const { data: reviews = [] } = useGetProductReviews({
     productId: id,
   });
- 
+
   const onSubmit = (values: { rating: number; description: string }) => {
     if (values.description.trim() === "") {
-      toast("messege empty");
+      toast("Message empty");
       return;
     }
     if (!user || !user.id) {
-      toast("You need to be Signed In for this action!");
+      toast("You need to be signed in for this action!");
       return;
     }
     if (!id) {
-      toast("Invalid Product id");
+      toast("Invalid product ID");
       return;
     }
-
-    toast("Review Has Been Added");
+  
     writeReview(
       {
         userId: user.id,
@@ -53,11 +51,17 @@ const VirtualizedReviewList: React.FC = () => {
         productId: id,
       },
       {
-       
-        onError: (error) => console.error("Error submitting review:", error),
-      },
+        onSuccess: () => {
+          setOpen(false);
+          toast("Review submitted successfully!");
+        },
+        onError: (error) =>{
+           toast("Review submitted successfully!");
+           console.error("Error submitting review:", error)},
+      }
     );
   };
+  
 
   const virtualizer = useVirtualizer({
     count: reviews.length,
@@ -73,7 +77,7 @@ const VirtualizedReviewList: React.FC = () => {
     <div className="max-w-screen-lg w-full">
       <div
         ref={containerRef}
-        className={`h-[300px] p-5 ${reviews.length > 0 ? "pb-20" : ""} px-10 block-shadow   max-w-screen-lg w-full overflow-auto rounded-lg scrollbar-hide`}
+        className={`h-[300px] p-5 ${reviews.length > 0 ? "pb-10 pt-0 sm:pt-5 sm:pb-20" : ""} sm:px-10 block-shadow   max-w-screen-lg w-full overflow-auto rounded-lg scrollbar-hide`}
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
@@ -122,7 +126,9 @@ const VirtualizedReviewList: React.FC = () => {
                           </div>
                           <div className="flex text-sm lg:text-base items-center gap-1 dark:text-white">
                             <h1 className="font-semibold">Product Rating:</h1>
-                            <h1 className="text-lg font-semibold">{reviews[row.index].rating}</h1>
+                            <h1 className="text-lg font-semibold">
+                              {reviews[row.index].rating}
+                            </h1>
                             <svg
                               className="h-5 w-5 fill-yellow-500"
                               viewBox="0 0 24 24"
@@ -192,9 +198,11 @@ const VirtualizedReviewList: React.FC = () => {
                         </div>
                         <div className="flex flex-col sm:flex-row justify-between items-center mt-10">
                           <div className="flex flex-col">
-                            <div className="flex items-center justify-center gap-1 dark:text-white">
+                            <div className="flex items-center justify-center sm:justify-start gap-1 dark:text-white">
                               <h1 className="font-semibold">Product Rating:</h1>
-                              <h1 className="text-lg font-semibold">{reviews[row.index].rating}</h1>
+                              <h1 className="text-lg font-semibold">
+                                {reviews[row.index].rating}
+                              </h1>
                               <svg
                                 className="h-5 w-5 fill-yellow-500"
                                 viewBox="0 0 24 24"
@@ -219,13 +227,13 @@ const VirtualizedReviewList: React.FC = () => {
                               </svg>
                             </div>
                             <div className="text-base font-semibold text-gray-600">
-                              {reviews[row.index].like}50 people found this
+                              {reviews[row.index].like_count}50 people found this
                               review helpful
                             </div>
                           </div>
                           <div className="flex flex-col items-center gap-2">
                             <span className="text-base font-semibold text-gray-600">
-                              did you find this helpful?
+                              did you find it helpful?
                             </span>
                             <div className="flex gap-5">
                               <Button className="flex items-center">
@@ -317,9 +325,9 @@ const VirtualizedReviewList: React.FC = () => {
         )}
       </div>
 
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className="w-full flex justify-center">
-          <Button className="mt-5 w-full max-w-md p-5 mb-5">
+          <Button onClick={() => setOpen(true)} className="mt-5 w-full max-w-md p-5 mb-5">
             Add Your Review
           </Button>
         </DialogTrigger>

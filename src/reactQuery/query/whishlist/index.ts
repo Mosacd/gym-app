@@ -1,5 +1,4 @@
-import { Product } from "@/supabase/products";
-import { getWishlistedProducts } from "@/supabase/whishlist";
+import { getWishlistedProducts, WhishlistItem } from "@/supabase/whishlist";
 import {
   useQuery,
   UseQueryOptions,
@@ -10,11 +9,11 @@ export const useGetWhishlistedProducts = <T>(
   {
     queryOptions,
   }: {
-    queryOptions?: Omit<UseQueryOptions<Product[], Error, T>, "queryKey">;
+    queryOptions?: Omit<UseQueryOptions<WhishlistItem[], Error, T>, "queryKey">;
   } = {},
   id: string | undefined,
 ): UseQueryResult<T, Error> => {
-  return useQuery<Product[], Error, T>({
+  return useQuery<WhishlistItem[], Error, T>({
     queryKey: ["Whishlist", id],
     queryFn: () => {
       return getWishlistedProducts(id);

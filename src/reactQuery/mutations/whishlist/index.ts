@@ -1,4 +1,4 @@
-import { addToWishlist } from "@/supabase/whishlist";
+import { addToWishlist, deleteFromWishlist } from "@/supabase/whishlist";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useAddToWishlist = () => {
@@ -25,3 +25,33 @@ export const useAddToWishlist = () => {
     },
   });
 };
+
+
+
+export const useDeleteWhishlistItem = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    void,
+    Error,
+    {
+      userId: string;
+      productId: number;
+    }
+  >({
+    mutationKey: ["deleteWhishlistItem"],
+    mutationFn: deleteFromWishlist,
+
+    onSuccess: (_, { userId }) => {
+      console.log("Item deleted from wishlist successfully!");
+      queryClient.invalidateQueries({
+        queryKey: ["Whishlist", userId],
+        exact: true,
+      });
+    },
+
+    onError: (error: Error) => {
+      console.error("Error deleting item from wishlist:", error);
+    },
+  });
+}
