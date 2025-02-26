@@ -21,17 +21,17 @@ const Whishlist = () => {
     user?.id,
   );
 
-const {mutate:deleteWhishlistItem } = useDeleteWhishlistItem();
+  const { mutate: deleteWhishlistItem } = useDeleteWhishlistItem();
 
-const deleteWhishlist = (
-  userId: string,
-  productId: number,
-  e:React.MouseEvent<HTMLButtonElement>
-) => {
-  e.preventDefault();
-  deleteWhishlistItem({ userId: userId, productId:productId });
-  toast("Whishlist Item Deleted")
-  }
+  const deleteWhishlist = (
+    userId: string,
+    productId: number,
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    e.preventDefault();
+    deleteWhishlistItem({ userId: userId, productId: productId });
+    toast("Whishlist Item Deleted");
+  };
 
   return (
     <>
@@ -78,13 +78,24 @@ const deleteWhishlist = (
                             <h3 className="text-base font-medium truncate">
                               {item.product.name}
                             </h3>
-                            
                           </div>
                           <div className="px-2 pb-2 flex-1 flex justify-center w-full">
-                          <Button onClick={(e) => deleteWhishlist(item.user_id,item.product.id,e)} variant={'destructive'} className="bg-red-600 hover:bg-red-700">Remove</Button>
+                            <Button
+                              onClick={(e) =>
+                                deleteWhishlist(
+                                  item.user_id,
+                                  item.product.id,
+                                  e,
+                                )
+                              }
+                              variant={"destructive"}
+                              className="bg-red-600 hover:bg-red-700"
+                            >
+                              Remove
+                            </Button>
                           </div>
                         </div>
-                      </div>                     
+                      </div>
                     </Link>
                   );
                 })

@@ -42,7 +42,7 @@ const VirtualizedReviewList: React.FC = () => {
       toast("Invalid product ID");
       return;
     }
-  
+
     writeReview(
       {
         userId: user.id,
@@ -55,13 +55,13 @@ const VirtualizedReviewList: React.FC = () => {
           setOpen(false);
           toast("Review submitted successfully!");
         },
-        onError: (error) =>{
-           toast("Review submitted successfully!");
-           console.error("Error submitting review:", error)},
-      }
+        onError: (error) => {
+          toast("Review submitted successfully!");
+          console.error("Error submitting review:", error);
+        },
+      },
     );
   };
-  
 
   const virtualizer = useVirtualizer({
     count: reviews.length,
@@ -227,8 +227,8 @@ const VirtualizedReviewList: React.FC = () => {
                               </svg>
                             </div>
                             <div className="text-base font-semibold text-gray-600">
-                              {reviews[row.index].like_count}50 people found this
-                              review helpful
+                              {reviews[row.index].like_count}50 people found
+                              this review helpful
                             </div>
                           </div>
                           <div className="flex flex-col items-center gap-2">
@@ -327,7 +327,10 @@ const VirtualizedReviewList: React.FC = () => {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className="w-full flex justify-center">
-          <Button onClick={() => setOpen(true)} className="mt-5 w-full max-w-md p-5 mb-5">
+          <Button
+            onClick={() => setOpen(true)}
+            className="mt-5 w-full max-w-md p-5 mb-5"
+          >
             Add Your Review
           </Button>
         </DialogTrigger>

@@ -16,7 +16,7 @@ export const getProductReviews = async (
     `,
     )
     .eq("product_id", Number(productId))
-    .order("like", { ascending: false });
+    .order("like_count", { ascending: false });
 
   if (error) {
     console.error("Error fetching orders:", error.message);
@@ -65,7 +65,7 @@ export const deleteReview = async (reviewId: number): Promise<void> => {
     console.error("Error deleting review:", error.message);
     throw new Error("Failed to delete the review. Please try again later.");
   }
-}
+};
 
 export const getUserReviews = async (
   id: string | undefined,
@@ -115,7 +115,6 @@ export const getUserReviews = async (
 //     console.error("Error updating like count:", rpcError);
 //   }
 // };
-
 
 export const mapUserReviewsData = (datalist: Reviews[]) => {
   return datalist.map((data) => ({

@@ -26,8 +26,6 @@ export const useAddToWishlist = () => {
   });
 };
 
-
-
 export const useDeleteWhishlistItem = () => {
   const queryClient = useQueryClient();
 
@@ -54,4 +52,4 @@ export const useDeleteWhishlistItem = () => {
       console.error("Error deleting item from wishlist:", error);
     },
   });
-}
+};

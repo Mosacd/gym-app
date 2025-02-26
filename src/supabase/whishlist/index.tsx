@@ -32,22 +32,22 @@ export const getWishlistedProducts = async (
   }
 
   // Transform the response if needed (optional)
-  return data as WhishlistItem[] || []
+  return (data as WhishlistItem[]) || [];
 };
 
 export type WhishlistItem = {
   id: number;
   user_id: string | null;
   product: {
-      id: number;
-      name: string | null;
-      description: string | null;
-      created_at: string;
-      price: number | null;
-      category: string | null;
-      image_url: string[] | null;
-  }
-}
+    id: number;
+    name: string | null;
+    description: string | null;
+    created_at: string;
+    price: number | null;
+    category: string | null;
+    image_url: string[] | null;
+  };
+};
 
 export const mapWhishlistItemData = (datalist: WhishlistItem[]) => {
   return datalist.map((data) => ({
@@ -88,7 +88,6 @@ export const addToWishlist = async ({
   }
 };
 
-
 export const deleteFromWishlist = async ({
   userId,
   productId,
@@ -112,4 +111,4 @@ export const deleteFromWishlist = async ({
     console.error("Error deleting item from wishlist:", error.message);
     throw new Error(error.message);
   }
-}
+};

@@ -35,7 +35,6 @@ export const useWriteReview = () => {
   });
 };
 
-
 export const useDeleteReview = () => {
   const queryClient = useQueryClient();
 
@@ -68,7 +67,6 @@ export const useDeleteReview = () => {
     },
   });
 };
-
 
 // export const useLikeReview = () => {
 
