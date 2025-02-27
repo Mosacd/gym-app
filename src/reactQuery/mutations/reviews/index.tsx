@@ -1,5 +1,6 @@
-import { deleteReview, writeReview } from "@/supabase/reviews";
+import { deleteReview, toggleLike, writeReview } from "@/supabase/reviews";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export const useWriteReview = () => {
   const queryClient = useQueryClient();
@@ -47,7 +48,7 @@ export const useDeleteReview = () => {
       productId: string;
     }
   >({
-    mutationKey: ["writeReview"],
+    mutationKey: ["deleteReview"],
     mutationFn: async ({ reviewId }) => deleteReview(reviewId),
 
     onSuccess: (_, { userId, productId }) => {
@@ -68,17 +69,40 @@ export const useDeleteReview = () => {
   });
 };
 
-// export const useLikeReview = () => {
+export const useToggleLike = () => {
+  const queryClient = useQueryClient();
 
-//     return useMutation<
-//     void,
-//     Error,
-//     {
-//       reviewId: number;
-//       hasLiked: boolean;
-//     }
-//   >({
-//     mutationKey: ["likeReview"],
-//     mutationFn:likeReview,
-//   });
-//   };
+  return useMutation<
+    { liked: boolean; change: number },
+    Error,
+    { reviewId: number; userId: string, productId: string }
+  >({
+    mutationKey: ["toggleLike"],
+    mutationFn: ({ reviewId, userId }) => toggleLike(reviewId, userId),
+
+    onSuccess: ({ liked }, { productId, userId, reviewId }) => {
+      console.log(`Like toggled: ${liked ? "Liked" : "Unliked"}`);
+      console.log("Invalidating query key:", ["productReviews", productId]);
+
+
+      // Optimistically update the like count in queries
+      queryClient.invalidateQueries({
+        queryKey: ["userReviews", userId],
+        exact: true,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["productReviews", productId],
+        exact: true,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["liked", userId, reviewId],
+        exact: true,
+      });
+    },
+
+    onError: (error: Error) => {
+      console.error("Error toggling like:", error);
+      toast("Must be logged in")
+    },
+  });
+};
