@@ -23,7 +23,6 @@ export const getProductReviews = async (
     throw new Error(error.message);
   }
 
-
   return (data as ProductReviews[]) || [];
 };
 
@@ -94,50 +93,52 @@ export const getUserReviews = async (
   return (data as Reviews[]) || [];
 };
 
-
 export const toggleLike = async (reviewId: number, userId: string) => {
   if (!userId) throw new Error("User must be logged in.");
-  console.log("this is user id" + userId)
+  console.log("this is user id" + userId);
   // Check if the user already liked the review
   const { data: like, error: likeError } = await supabase
-  .from("review_likes")
-  .select("id")
-  .eq("review_id", reviewId)
-  .eq("user_id", userId)
-  .maybeSingle();
+    .from("review_likes")
+    .select("id")
+    .eq("review_id", reviewId)
+    .eq("user_id", userId)
+    .maybeSingle();
 
-  if (likeError && likeError.code !== "PGRST116") throw new Error(likeError.message);
+  if (likeError && likeError.code !== "PGRST116")
+    throw new Error(likeError.message);
 
   if (like) {
-      // User has liked → Remove like & decrement `like_count`
-      const { error: deleteError } = await supabase
-          .from("review_likes")
-          .delete()
-          .eq("id", like.id);
+    // User has liked → Remove like & decrement `like_count`
+    const { error: deleteError } = await supabase
+      .from("review_likes")
+      .delete()
+      .eq("id", like.id);
 
-      if (deleteError) throw new Error(deleteError.message);
+    if (deleteError) throw new Error(deleteError.message);
 
-      // Decrement like_count
-      await supabase.rpc("decrement_like_count", { review_id: reviewId });
+    // Decrement like_count
+    await supabase.rpc("decrement_like_count", { review_id: reviewId });
 
-      return { liked: false, change: -1 };
+    return { liked: false, change: -1 };
   } else {
-      // User has not liked → Add like & increment `like_count`
-      const { error: insertError } = await supabase
-          .from("review_likes")
-          .insert([{ user_id: userId, review_id: reviewId }]);
+    // User has not liked → Add like & increment `like_count`
+    const { error: insertError } = await supabase
+      .from("review_likes")
+      .insert([{ user_id: userId, review_id: reviewId }]);
 
-      if (insertError) throw new Error(insertError.message);
+    if (insertError) throw new Error(insertError.message);
 
-      // Increment like_count
-      await supabase.rpc("increment_like_count", { review_id: reviewId });
+    // Increment like_count
+    await supabase.rpc("increment_like_count", { review_id: reviewId });
 
-      return { liked: true, change: +1 };
+    return { liked: true, change: +1 };
   }
 };
 
-export const getLikedByUser = async (reviewId: number | undefined, userId: string | undefined):Promise<{liked:boolean}> => {
-
+export const getLikedByUser = async (
+  reviewId: number | undefined,
+  userId: string | undefined,
+): Promise<{ liked: boolean }> => {
   if (userId === undefined) {
     throw new Error("User ID is required to fetch orders.");
   }
@@ -147,19 +148,19 @@ export const getLikedByUser = async (reviewId: number | undefined, userId: strin
   }
 
   const { data, error } = await supabase
-  .from("review_likes")
-  .select("id")
-  .eq("review_id", reviewId)
-  .eq("user_id", userId)
-  .maybeSingle();
+    .from("review_likes")
+    .select("id")
+    .eq("review_id", reviewId)
+    .eq("user_id", userId)
+    .maybeSingle();
 
   if (error) throw new Error(error.message);
 
-  if(data){
-    return {liked:true};
-  } 
+  if (data) {
+    return { liked: true };
+  }
 
-  return {liked: false};
+  return { liked: false };
 };
 
 export const mapUserReviewsData = (datalist: Reviews[]) => {

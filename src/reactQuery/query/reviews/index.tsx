@@ -50,22 +50,23 @@ export const useGetUserReviews = <T = Reviews[],>({
   });
 };
 
-
-export const useGetLikedByUser = <T = {liked:boolean}>({
-  reviewId, userId, queryOptions
-  }: {
+export const useGetLikedByUser = <T = { liked: boolean },>({
+  reviewId,
+  userId,
+  queryOptions,
+}: {
   reviewId: number | undefined;
   userId: string | undefined;
   queryOptions?: Omit<
-  UseQueryOptions<{liked:boolean}, Error, T>,
-  "queryKey" | "queryFn"
->;
-  }): UseQueryResult<T, Error> => {
-    return useQuery<{liked:boolean}, Error, T>({
-      queryKey: ["liked", userId, reviewId],
-      queryFn: () => getLikedByUser(reviewId, userId),
-      enabled: !!userId, // Only fetch if userId is defined
-      staleTime: 5 * 60 * 1000, // Cache for 5 minutes
-      ...queryOptions,
-    });
-  }
+    UseQueryOptions<{ liked: boolean }, Error, T>,
+    "queryKey" | "queryFn"
+  >;
+}): UseQueryResult<T, Error> => {
+  return useQuery<{ liked: boolean }, Error, T>({
+    queryKey: ["liked", userId, reviewId],
+    queryFn: () => getLikedByUser(reviewId, userId),
+    enabled: !!userId, // Only fetch if userId is defined
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+    ...queryOptions,
+  });
+};

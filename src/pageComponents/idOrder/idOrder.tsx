@@ -32,6 +32,7 @@ const IdOrder = () => {
         },
       ],
     },
+    isLoading
   } = useGetUserSingleOrder(
     { queryOptions: { select: mapSingleOrdersData } },
     OrderId,
@@ -41,8 +42,9 @@ const IdOrder = () => {
     new Date(isoString).toLocaleString();
 
   return (
-    <div className="flex flex-col items-center p-10 sm:p-20 min-h-screen">
-      <h1 className="text-3xl mb-5 font-semibold dark:text-white font-mono">
+  <div className="flex flex-col items-center p-10 sm:p-20 min-h-screen">
+ {!isLoading &&  (     <>
+  <h1 className="text-3xl mb-5 font-semibold dark:text-white font-mono">
         ORDER {userOrder.id}
       </h1>
       <h1 className="text-gray-700 dark:text-gray-400 mb-4">
@@ -120,8 +122,10 @@ const IdOrder = () => {
       <h1 className="text-gray-700 dark:text-gray-400 mb-4 text-xl mt-4 font-semibold">
         Total Price: {userOrder.total_price}$
       </h1>
+      </>
+ )}
     </div>
-  );
+);
 };
 
 export default IdOrder;

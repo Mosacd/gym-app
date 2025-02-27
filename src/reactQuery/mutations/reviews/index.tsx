@@ -75,7 +75,7 @@ export const useToggleLike = () => {
   return useMutation<
     { liked: boolean; change: number },
     Error,
-    { reviewId: number; userId: string, productId: string }
+    { reviewId: number; userId: string; productId: string }
   >({
     mutationKey: ["toggleLike"],
     mutationFn: ({ reviewId, userId }) => toggleLike(reviewId, userId),
@@ -83,7 +83,6 @@ export const useToggleLike = () => {
     onSuccess: ({ liked }, { productId, userId, reviewId }) => {
       console.log(`Like toggled: ${liked ? "Liked" : "Unliked"}`);
       console.log("Invalidating query key:", ["productReviews", productId]);
-
 
       // Optimistically update the like count in queries
       queryClient.invalidateQueries({
@@ -102,7 +101,7 @@ export const useToggleLike = () => {
 
     onError: (error: Error) => {
       console.error("Error toggling like:", error);
-      toast("Must be logged in")
+      toast("Must be logged in");
     },
   });
 };

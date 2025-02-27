@@ -101,8 +101,8 @@ const ReviewForm: React.FC<{
               render={({ field }) => (
                 <FormItem>
                   <div className="flex flex-col">
-                  <FormLabel className="text-base">Description</FormLabel>
-                  <span>maximum 600 characters</span>
+                    <FormLabel className="text-base">Description</FormLabel>
+                    <span>maximum 600 characters</span>
                   </div>
                   <FormControl>
                     <Textarea
@@ -112,7 +112,7 @@ const ReviewForm: React.FC<{
                       {...field}
                     />
                   </FormControl>
-                  
+
                   <FormMessage />
                 </FormItem>
               )}
