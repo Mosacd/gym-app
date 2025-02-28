@@ -102,10 +102,12 @@ const VirtualizedReviewList: React.FC = () => {
     <div className="max-w-screen-lg w-full">
       <div
         ref={containerRef}
-        className={`h-[300px] p-5 ${reviews.length > 0 ? "pb-10 pt-0 sm:pt-5 sm:pb-20" : ""} sm:px-10 block-shadow   max-w-screen-lg w-full overflow-auto rounded-lg scrollbar-hide`}
+        className={`h-[300px] p-5 ${reviews.length > 0 ? "pb-10 pt-0 sm:pt-5 sm:pb-20" : ""} sm:px-10 block-shadow   max-w-screen-lg w-full overflow-auto rounded-lg`}
         style={{
-          scrollbarWidth: "none",
+          scrollbarWidth: "thin",
+          scrollbarColor: "none",
           msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
         }}
       >
         {reviews.length > 0 ? (

@@ -14,7 +14,7 @@ const ProfileHero = () => {
   };
 
   return (
-    <div className="dark:bg-neutral-800 bg-neutral-700 flex-col gap-4 md:flex-row md:items-end border-y-2 border-y-neutral-800 px-10 lg:px-20 pt-10 pb-5 flex sm:justify-between ">
+    <div className="dark:bg-neutral-800 bg-neutral-900 flex-col gap-4 md:flex-row md:items-end border-y-2 border-y-neutral-800 px-10 lg:px-20 pt-10 pb-5 flex sm:justify-between ">
       <div className="flex flex-col sm:flex-row items-center gap-5">
         <div className="rounded-full bg-black">
           <Avatar className="w-36 h-36 md:w-40 md:h-40">

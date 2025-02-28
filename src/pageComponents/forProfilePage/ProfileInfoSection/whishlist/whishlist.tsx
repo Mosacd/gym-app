@@ -58,7 +58,7 @@ const Whishlist = () => {
                   return (
                     <Link
                       className="w-60 transform-all duration-200 hover:-translate-y-2"
-                      to={`/dashboard/productDetail/${item.id}`}
+                      to={`/dashboard/productDetail/${item.product.id}`}
                     >
                       <div
                         key={item.id}

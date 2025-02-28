@@ -10,7 +10,7 @@ import {
 const SortMenu = () => {
   return (
     <Select>
-      <SelectTrigger className="w-40 border-2 dark:text-white hover:bg-gray-100 dark:hover:bg-neutral-900 transition">
+      <SelectTrigger className="max-w-40 border-2 dark:text-white hover:bg-gray-100 dark:hover:bg-neutral-900 transition">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
       <SelectContent>

@@ -81,7 +81,8 @@ const VirtualizedProductGrid: React.FC<{ searchQuery: string }> = ({
         ref={containerRef}
         className="h-[900px] overflow-auto scrollbar-hide"
         style={{
-          scrollbarWidth: "none",
+          scrollbarWidth: "thin",
+          scrollbarColor: "none",
           msOverflowStyle: "none",
           WebkitOverflowScrolling: "touch",
         }}
